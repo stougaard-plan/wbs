@@ -192,13 +192,13 @@
 <div class="section">
   <div class="section-title">Nøgleleverancer</div>
   <table>
-    <thead><tr><th style="width:50px">Fase</th><th>Leverance</th><th style="width:90px">Planlagt</th><th style="width:120px">Modtager</th></tr></thead>
+    <thead><tr><th style="width:40px">Nr.</th><th>Leverance</th><th style="width:110px">Format</th><th style="width:80px">Opgave</th><th style="width:80px">Planlagt</th></tr></thead>
     <tbody>
-      <tr><td>0</td><td>WBS + procesplan + mødeplan</td><td>18. mar</td><td>Stinne Bjerg</td></tr>
-      <tr><td>1</td><td>Indlæsningsnotat + områdekort + dialogplan</td><td>27. mar</td><td>Stinne Bjerg</td></tr>
-      <tr><td>2</td><td>Referat Jens Thornsen + godkendt spørgeguide</td><td>10. apr</td><td>Stinne / Jens T</td></tr>
-      <tr><td>3</td><td>Opsamlingsnotat fra erhvervsdialog</td><td>23. apr</td><td>Stinne Bjerg</td></tr>
-      <tr><td>4</td><td>Servicetjek-rapport + politisk dagsorden</td><td>7. maj</td><td>Stinne / udvalg</td></tr>
+      <tr><td>L0</td><td>Procesplan (WBS) med estimat og mødeplan</td><td>Notat / mail</td><td>0.1</td><td>18. mar</td></tr>
+      <tr><td>L1</td><td>Oversigtsnotat med kortlægning + dialogplan v1</td><td>Notat (Word/PDF)</td><td>1.3</td><td>27. mar</td></tr>
+      <tr><td>L2</td><td>Dialogplan v2 (efter sparring m. Jens Thornsen)</td><td>Notat (Word/PDF)</td><td>2.2</td><td>8. apr</td></tr>
+      <tr><td>L3</td><td>Opsamling fra erhvervsdialog</td><td>Notat / rådata</td><td>3.3</td><td>23. apr</td></tr>
+      <tr><td>L4</td><td>Første udkast til servicetjek-rapport</td><td>Rapport (Word/PDF)</td><td>4.2</td><td>4. maj</td></tr>
     </tbody>
   </table>
 </div>
@@ -233,32 +233,32 @@ let saving = false;
 
 const phases = [
   { id: 'f0', label: 'Fase 0 — Procesplan', color: 'var(--blue)', bgColor: 'var(--blue-light)', tasks: [
-    { id: '0.1', name: 'WBS, estimat og procesplan', hours: 2, dep: '—', dod: 'Godkendt WBS med timer, datoer, afhængigheder', start: '18/3', end: '18/3', lev: true },
-    { id: '0.2', name: 'Mødeplan: book Stinne + Jens Thornsen', hours: 2, dep: '—', dod: 'Mødedatoer i kalenderen for Fase 1–3', start: '18/3', end: '18/3', lev: true },
-    { id: '0.3', name: 'Procesnotat: afgrænsning, metode, forudsætninger', hours: 2, dep: '0.1', dod: 'Kort notat med scope, metode og leveranceplan', start: '18/3', end: '18/3', lev: true },
+    { id: '0.1', name: 'WBS, estimat og procesplan', hours: 2, dep: '—', dod: 'Godkendt WBS med timer, datoer, afhængigheder', start: '18/3', end: '18/3', lev: 'L0: Procesplan (WBS) + mødeplan' },
+    { id: '0.2', name: 'Mødeplan: book Stinne + Jens Thornsen', hours: 2, dep: '—', dod: 'Mødedatoer i kalenderen for Fase 1–3', start: '18/3', end: '18/3' },
+    { id: '0.3', name: 'Procesnotat: afgrænsning, metode, forudsætninger', hours: 2, dep: '0.1', dod: 'Kort notat med scope, metode og leveranceplan', start: '18/3', end: '18/3' },
   ]},
   { id: 'f1', label: 'Fase 1 — Indlæsning og kortlægning', color: 'var(--green)', bgColor: 'var(--green-light)', tasks: [
-    { id: '1.1', name: 'Indlæsning: planstrategi, servicetjek 2013, politisk mandat', hours: 4, dep: '0.1', dod: 'Notat med nøglefund, politisk ramme, åbne spørgsmål', start: '18/3', end: '25/3', lev: true },
-    { id: '1.2', name: 'Områdeafgrænsning: kort over erhvervsområder', hours: 6, dep: '0.1', dod: 'Kort + dataskema pr. område. Godkendt af Stinne', start: '25/3', end: '27/3', lev: true },
-    { id: '1.3', name: 'Dialogplan: metode, målgruppe, spørgsmål', hours: 4, dep: '1.1', dod: 'Godkendt dialogplan klar til Jens Thornsen-møde', start: '27/3', end: '27/3', lev: true },
+    { id: '1.1', name: 'Indlæsning: planstrategi, servicetjek 2013, politisk mandat', hours: 4, dep: '0.1', dod: 'Notat med nøglefund, politisk ramme, åbne spørgsmål', start: '18/3', end: '25/3' },
+    { id: '1.2', name: 'Områdeafgrænsning: kort over erhvervsområder', hours: 6, dep: '0.1', dod: 'Kort + dataskema pr. område. Godkendt af Stinne', start: '25/3', end: '27/3' },
+    { id: '1.3', name: 'Dialogplan: metode, målgruppe, spørgsmål', hours: 4, dep: '1.1', dod: 'Godkendt dialogplan klar til Jens Thornsen-møde', start: '27/3', end: '27/3', lev: 'L1: Oversigtsnotat + kortlægning + dialogplan v1' },
     { id: '1.4', name: 'Besigtigelse af erhvervsområder', hours: 8, dep: '1.2', dod: 'Fotos og observationsnoter pr. område', start: '27/3', end: '30/3' },
   ]},
   { id: 'f2', label: 'Fase 2 — Sparring og dialogforberedelse', color: 'var(--amber)', bgColor: 'var(--amber-light)', tasks: [
-    { id: '2.1', name: 'Møde med Jens Thornsen (Erhvervschef, Roskilde Kommune)', hours: 2, dep: '1.1, 1.3', dod: 'Referat med input + kontaktliste til erhvervsdrivende', start: '25/3', end: '25/3', lev: true },
-    { id: '2.2', name: 'Opdateret dialogplan + spørgeguide', hours: 4, dep: '2.1', dod: 'Endelig dialogplan og interviewguide klar', start: '8/4', end: '8/4', lev: true },
-    { id: '2.3', name: 'Godkendelse hos Stinne Bjerg (skriftlig)', hours: 2, dep: '2.2', dod: 'Skriftlig OK til erhvervsdialog', start: '8/4', end: '10/4', lev: true },
+    { id: '2.1', name: 'Møde med Jens Thornsen (Erhvervschef, Roskilde Kommune)', hours: 2, dep: '1.1, 1.3', dod: 'Referat med input + kontaktliste til erhvervsdrivende', start: '25/3', end: '25/3' },
+    { id: '2.2', name: 'Opdateret dialogplan + spørgeguide', hours: 4, dep: '2.1', dod: 'Endelig dialogplan og interviewguide klar', start: '8/4', end: '8/4', lev: 'L2: Dialogplan v2 (efter sparring m. Jens)' },
+    { id: '2.3', name: 'Godkendelse hos Stinne Bjerg (skriftlig)', hours: 2, dep: '2.2', dod: 'Skriftlig OK til erhvervsdialog', start: '8/4', end: '10/4' },
     { id: '2.4', name: 'Udsendelse af spørgeskema + mødeinvitationer', hours: 2, dep: '2.3', dod: 'Spørgeskema udsendt, interviews booket', start: '10/4', end: '10/4' },
   ]},
   { id: 'f3', label: 'Fase 3 — Erhvervsdialog', color: 'var(--purple)', bgColor: 'var(--purple-light)', tasks: [
     { id: '3.1', name: 'Interviews / besøg hos erhvervsdrivende', hours: 16, dep: '2.3', dod: 'Min. 8–12 interviews gennemført, noter skrevet', start: '10/4', end: '16/4' },
     { id: '3.2', name: 'Spørgeskema — opsamling og databehandling', hours: 6, dep: '2.4', dod: 'Svar opsamlet og opsummeret i datasæt', start: '16/4', end: '20/4' },
-    { id: '3.3', name: 'Opsamlingsnotat fra erhvervsdialog', hours: 6, dep: '3.1, 3.2', dod: 'Samlet opsamling: temaer, udfordringer, anbefalinger', start: '20/4', end: '23/4', lev: true },
+    { id: '3.3', name: 'Opsamlingsnotat fra erhvervsdialog', hours: 6, dep: '3.1, 3.2', dod: 'Samlet opsamling: temaer, udfordringer, anbefalinger', start: '20/4', end: '23/4', lev: 'L3: Opsamling fra erhvervsdialog' },
   ]},
   { id: 'f4', label: 'Fase 4 — Analyse og rapport', color: 'var(--teal)', bgColor: 'var(--teal-light)', tasks: [
     { id: '4.1', name: 'Analyse: virksomhedsdata, restrummelighed, LP\'er', hours: 10, dep: '1.2, 3.1', dod: 'Dataanalyse pr. område: plan, virksomheder, udfordringer', start: '23/4', end: '27/4' },
-    { id: '4.2', name: 'Servicetjek-rapport (udkast)', hours: 18, dep: '3.3, 4.1', dod: 'Færdigt rapportudkast med resultater + anbefalinger', start: '27/4', end: '4/5', lev: true },
-    { id: '4.3', name: 'Review med Stinne + færdiggørelse', hours: 4, dep: '4.2', dod: 'Endelig rapport klar til politisk behandling', start: '4/5', end: '7/5', lev: true },
-    { id: '4.4', name: 'Politisk dagsorden / sagsfremstilling', hours: 4, dep: '4.3', dod: 'Udkast til politisk dagsorden', start: '7/5', end: '7/5', lev: true },
+    { id: '4.2', name: 'Servicetjek-rapport (udkast)', hours: 18, dep: '3.3, 4.1', dod: 'Færdigt rapportudkast med resultater + anbefalinger', start: '27/4', end: '4/5', lev: 'L4: Første udkast til servicetjek-rapport' },
+    { id: '4.3', name: 'Review med Stinne + færdiggørelse', hours: 4, dep: '4.2', dod: 'Endelig rapport klar til politisk behandling', start: '4/5', end: '7/5' },
+    { id: '4.4', name: 'Politisk dagsorden / sagsfremstilling', hours: 4, dep: '4.3', dod: 'Udkast til politisk dagsorden', start: '7/5', end: '7/5' },
   ]},
 ];
 
@@ -364,7 +364,7 @@ function renderTable() {
       const clickAttr = EDIT_MODE ? `onclick="cycleStatus('${task.id}')"` : '';
       const cursorStyle = EDIT_MODE ? 'cursor:pointer;' : 'cursor:default;';
 
-      const levBadge = task.lev ? ' <span style="background:var(--amber-light);color:var(--amber);font-size:10px;padding:1px 5px;border-radius:4px;font-weight:600;vertical-align:middle;">Leverance</span>' : '';
+      const levBadge = task.lev ? ` <span style="background:var(--amber-light);color:var(--amber);font-size:10px;padding:1px 5px;border-radius:4px;font-weight:600;vertical-align:middle;" title="${task.lev}">📦 ${task.lev.split(':')[0]}</span>` : '';
 
       tr.innerHTML = `
         <td><div class="${cbClass}" ${clickAttr} style="${cursorStyle}">${cbIcon}</div></td>
