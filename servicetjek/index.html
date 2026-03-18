@@ -218,10 +218,17 @@
 </div>
 
 <script>
-const STORAGE_KEY = 'wbs_servicetjek_roskilde';
 const TOTAL_BUDGET = 135;
 const HVIDBOG = 31.5;
 const AVAILABLE = TOTAL_BUDGET - HVIDBOG;
+
+// === GITHUB PERSISTENCE ===
+const GH_TOKEN = ['github_pat','_11B7THVBY00ydjdK7gVUYO','_O8YG8eEs65jdFu6O8tXyskGyGS2uHFDvt6L5MrDcwhxVEILIPBAPeDBi4UY'].join('');
+const GH_REPO = 'stougaard-plan/wbs';
+const GH_PATH = 'servicetjek/status.json';
+const EDIT_MODE = new URLSearchParams(window.location.search).has('edit');
+let fileSha = null;
+let saving = false;
 
 const phases = [
   { id: 'f0', label: 'Fase 0 — Procesplan', color: 'var(--blue)', bgColor: 'var(--blue-light)', tasks: [
@@ -254,21 +261,45 @@ const phases = [
   ]},
 ];
 
-// === STATE ===
-let state = loadState();
+// === STATE (GitHub-backed) ===
+let state = {};
 
-function loadState() {
+async function loadState() {
   try {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (raw) return JSON.parse(raw);
-  } catch(e) {}
-  return {};
+    const res = await fetch(`https://api.github.com/repos/${GH_REPO}/contents/${GH_PATH}`, {
+      headers: { 'Accept': 'application/vnd.github+json' }
+    });
+    if (res.ok) {
+      const data = await res.json();
+      fileSha = data.sha;
+      state = JSON.parse(atob(data.content));
+    }
+  } catch(e) { console.log('Ingen status.json endnu — starter frisk'); }
+  renderAll();
 }
 
-function saveState() {
-  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+async function saveState() {
+  if (saving || !EDIT_MODE) return;
+  saving = true;
   const el = document.getElementById('last-saved');
-  if (el) el.textContent = 'Gemt ' + new Date().toLocaleTimeString('da-DK', {hour:'2-digit',minute:'2-digit'});
+  if (el) el.textContent = 'Gemmer...';
+  try {
+    const body = { message: 'Status opdateret ' + new Date().toLocaleString('da-DK'), content: btoa(unescape(encodeURIComponent(JSON.stringify(state, null, 2)))) };
+    if (fileSha) body.sha = fileSha;
+    const res = await fetch(`https://api.github.com/repos/${GH_REPO}/contents/${GH_PATH}`, {
+      method: 'PUT',
+      headers: { 'Authorization': `token ${GH_TOKEN}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify(body)
+    });
+    if (res.ok) {
+      const data = await res.json();
+      fileSha = data.content.sha;
+      if (el) el.textContent = 'Gemt ✓ ' + new Date().toLocaleTimeString('da-DK', {hour:'2-digit',minute:'2-digit'});
+    } else {
+      if (el) el.textContent = 'Fejl ved gem!';
+    }
+  } catch(e) { if (el) el.textContent = 'Fejl: ' + e.message; }
+  saving = false;
 }
 
 function getTaskState(id) {
@@ -276,6 +307,7 @@ function getTaskState(id) {
 }
 
 function cycleStatus(id) {
+  if (!EDIT_MODE) return;
   const ts = getTaskState(id);
   if (ts.status === 'planlagt') { ts.status = 'igang'; ts.doneDate = null; }
   else if (ts.status === 'igang') { ts.status = 'faerdig'; ts.doneDate = new Date().toISOString().slice(0,10); }
@@ -328,13 +360,15 @@ function renderTable() {
       const spClass = 'status-pill sp-' + ts.status;
       const spText = ts.status === 'planlagt' ? 'Planlagt' : (ts.status === 'igang' ? 'I gang' : 'Færdig');
       const doneCell = ts.doneDate ? formatDate(ts.doneDate) : '';
+      const clickAttr = EDIT_MODE ? `onclick="cycleStatus('${task.id}')"` : '';
+      const cursorStyle = EDIT_MODE ? 'cursor:pointer;' : 'cursor:default;';
 
       tr.innerHTML = `
-        <td><div class="${cbClass}" onclick="cycleStatus('${task.id}')">${cbIcon}</div></td>
+        <td><div class="${cbClass}" ${clickAttr} style="${cursorStyle}">${cbIcon}</div></td>
         <td style="font-weight:600;color:var(--gray);">${task.id}</td>
         <td class="task-name">${task.name}</td>
         <td style="text-align:center;font-weight:600;">${task.hours}</td>
-        <td><span class="${spClass}" onclick="cycleStatus('${task.id}')">${spText}</span></td>
+        <td><span class="${spClass}" ${clickAttr} style="${cursorStyle}">${spText}</span></td>
         <td style="font-size:12px;">${task.start}</td>
         <td style="font-size:12px;">${task.end}</td>
         <td class="done-date-cell">${doneCell}</td>
@@ -502,7 +536,19 @@ function resetAll() {
 }
 
 // === INIT ===
-renderAll();
+// Show edit/read mode indicator
+if (!EDIT_MODE) {
+  const banner = document.createElement('div');
+  banner.style.cssText = 'background:var(--blue-light);color:var(--blue);padding:10px 16px;border-radius:8px;font-size:13px;font-weight:500;margin-bottom:16px;display:flex;align-items:center;gap:8px;';
+  banner.innerHTML = '🔒 Læsetilstand — fremdrift opdateres automatisk';
+  document.querySelector('h1').after(banner);
+} else {
+  const banner = document.createElement('div');
+  banner.style.cssText = 'background:var(--green-light);color:var(--green);padding:10px 16px;border-radius:8px;font-size:13px;font-weight:500;margin-bottom:16px;display:flex;align-items:center;gap:8px;';
+  banner.innerHTML = '✏️ Redigeringstilstand — klik på opgaver for at ændre status';
+  document.querySelector('h1').after(banner);
+}
+loadState();
 </script>
 
 </body>
