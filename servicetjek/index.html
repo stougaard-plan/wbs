@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WBS — Servicetjek af erhvervsområder, Roskilde Kommune</title>
+<style>
+  :root {
+    --bg: #fafafa; --card: #fff; --border: #e0e0e0;
+    --blue: #2563eb; --blue-light: #dbeafe;
+    --green: #16a34a; --green-light: #dcfce7;
+    --amber: #d97706; --amber-light: #fef3c7;
+    --purple: #7c3aed; --purple-light: #ede9fe;
+    --red: #dc2626; --red-light: #fee2e2;
+    --gray: #64748b; --gray-light: #f1f5f9;
+    --teal: #0d9488; --teal-light: #ccfbf1;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif; background: var(--bg); color: #1e293b; padding: 24px; max-width: 1400px; margin: 0 auto; }
+  h1 { font-size: 22px; font-weight: 700; margin-bottom: 4px; }
+  .subtitle { color: var(--gray); font-size: 14px; margin-bottom: 24px; }
+  .summary-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(155px, 1fr)); gap: 12px; margin-bottom: 28px; }
+  .summary-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 16px; }
+  .summary-card .label { font-size: 11px; text-transform: uppercase; letter-spacing: 0.5px; color: var(--gray); margin-bottom: 4px; }
+  .summary-card .value { font-size: 22px; font-weight: 700; }
+  .summary-card .note { font-size: 12px; color: var(--gray); margin-top: 2px; }
+  .section { margin-bottom: 28px; }
+  .section-title { font-size: 16px; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; gap: 8px; }
+  .badge { display: inline-block; font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 99px; }
+  table { width: 100%; border-collapse: collapse; background: var(--card); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; font-size: 13px; }
+  th { background: var(--gray-light); text-align: left; padding: 10px 8px; font-weight: 600; font-size: 11px; text-transform: uppercase; letter-spacing: 0.3px; color: var(--gray); }
+  td { padding: 8px; border-top: 1px solid var(--border); vertical-align: middle; }
+  .phase-row td { padding: 10px 8px; font-size: 14px; font-weight: 600; }
+  .task-row { transition: background 0.15s; }
+  .task-row:hover { background: #f8fafc; }
+  .task-row.done { background: #f0fdf4; }
+  .task-row.done td { color: #94a3b8; }
+  .task-row.done .task-name { text-decoration: line-through; }
+  .task-row.active { background: var(--blue-light); }
+
+  /* Checkbox */
+  .cb { width: 20px; height: 20px; border: 2px solid var(--border); border-radius: 5px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.15s; user-select: none; }
+  .cb:hover { border-color: var(--blue); }
+  .cb.checked { background: var(--green); border-color: var(--green); color: #fff; }
+  .cb.active { background: var(--blue); border-color: var(--blue); color: #fff; }
+
+  /* Status pill */
+  .status-pill { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 99px; cursor: pointer; user-select: none; white-space: nowrap; transition: all 0.15s; }
+  .status-pill:hover { opacity: 0.8; transform: scale(1.02); }
+  .sp-planlagt { background: var(--gray-light); color: var(--gray); }
+  .sp-igang { background: var(--blue-light); color: var(--blue); }
+  .sp-faerdig { background: var(--green-light); color: var(--green); }
+
+  /* Progress bar */
+  .progress-bar { height: 6px; background: var(--gray-light); border-radius: 3px; overflow: hidden; }
+  .progress-fill { height: 100%; border-radius: 3px; transition: width 0.4s ease; }
+
+  .hour-input { width: 50px; padding: 3px 4px; border: 1px solid var(--border); border-radius: 6px; font-size: 13px; font-weight: 600; text-align: center; background: #fff; }
+  .hour-input:focus { outline: none; border-color: var(--blue); box-shadow: 0 0 0 3px var(--blue-light); }
+  .done-date-cell { font-size: 11px; color: var(--green); font-weight: 600; }
+  .gantt-container { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 20px; overflow-x: auto; }
+  .gantt-header { display: grid; grid-template-columns: 260px 1fr; font-size: 11px; color: var(--gray); margin-bottom: 4px; }
+  .gantt-months { display: grid; grid-template-columns: repeat(4, 1fr); text-align: center; font-weight: 600; }
+  .gantt-row { display: grid; grid-template-columns: 260px 1fr; align-items: center; min-height: 32px; border-top: 1px solid #f1f5f9; }
+  .gantt-row.phase { background: var(--gray-light); font-weight: 600; font-size: 13px; min-height: 36px; }
+  .gantt-label { padding: 4px 8px; font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .legend { display: flex; gap: 16px; margin-top: 12px; font-size: 12px; align-items: center; flex-wrap: wrap; }
+  .legend-item { display: flex; align-items: center; gap: 4px; }
+  .legend-dot { width: 12px; height: 12px; border-radius: 3px; }
+  .note-box { background: var(--amber-light); border: 1px solid #fde68a; border-radius: 10px; padding: 16px; font-size: 13px; line-height: 1.6; }
+  .note-box strong { color: var(--amber); }
+  .budget-bar { display: flex; gap: 2px; height: 32px; border-radius: 6px; overflow: hidden; margin-bottom: 8px; }
+  .budget-bar > div { display: flex; align-items: center; justify-content: center; color: #fff; font-size: 11px; font-weight: 600; }
+  .risk-tag { display: inline-block; font-size: 11px; padding: 1px 6px; border-radius: 4px; font-weight: 500; }
+  .risk-med { background: var(--amber-light); color: var(--amber); }
+  .risk-low { background: var(--green-light); color: var(--green); }
+  .done-date { background: var(--green-light); border: 1px solid #bbf7d0; border-radius: 6px; padding: 2px 8px; font-weight: 600; color: var(--green); font-size: 12px; }
+  .toolbar { display: flex; gap: 8px; margin-bottom: 20px; flex-wrap: wrap; }
+  .toolbar button { padding: 8px 16px; border-radius: 8px; font-size: 13px; font-weight: 600; cursor: pointer; border: 1px solid var(--border); background: var(--card); color: var(--gray); transition: all 0.15s; }
+  .toolbar button:hover { border-color: var(--blue); color: var(--blue); }
+  .toolbar button.primary { background: var(--blue); color: #fff; border-color: var(--blue); }
+  .toolbar button.primary:hover { background: #1d4ed8; }
+  .capacity-table { width: 100%; border-collapse: collapse; background: var(--card); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; font-size: 13px; margin-top: 12px; }
+  .capacity-table th { background: var(--gray-light); text-align: center; padding: 8px 6px; font-weight: 600; font-size: 11px; text-transform: uppercase; color: var(--gray); }
+  .capacity-table td { padding: 8px 6px; border-top: 1px solid var(--border); text-align: center; font-size: 12px; }
+  .easter { background: #fef2f2; color: var(--red); font-style: italic; }
+  @media (max-width: 768px) { body { padding: 12px; } .summary-grid { grid-template-columns: 1fr 1fr; } }
+</style>
+</head>
+<body>
+
+<h1>WBS — Servicetjek af erhvervsområder</h1>
+<p class="subtitle">Roskilde Kommune · Stougaard Plan ApS · Tillæg 1: 1/3–1/6 2026 · Opgavebeskrivelse v1 (uden KPT)</p>
+
+<!-- SUMMARY CARDS -->
+<div class="summary-grid">
+  <div class="summary-card">
+    <div class="label">Fremdrift</div>
+    <div class="value" style="color:var(--teal)" id="card-progress">0%</div>
+    <div style="margin-top:6px"><div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%;background:var(--teal)"></div></div></div>
+    <div class="note" id="card-progress-note">0 af 17 opgaver</div>
+  </div>
+  <div class="summary-card">
+    <div class="label">Tillæg 1 — total</div>
+    <div class="value">135 t</div>
+    <div class="note">Hvidbog 31,5 t afsluttet</div>
+  </div>
+  <div class="summary-card">
+    <div class="label">Servicetjek (F0–F4)</div>
+    <div class="value" style="color:var(--teal)" id="card-servicetjek">102 t</div>
+    <div class="note" id="card-servicetjek-note">Inden for rammen</div>
+  </div>
+  <div class="summary-card">
+    <div class="label">Buffer</div>
+    <div class="value" style="color:var(--gray)" id="card-buffer">1,5 t</div>
+    <div class="note">Af 103,5 t tilgængelig</div>
+  </div>
+  <div class="summary-card">
+    <div class="label">Forventet færdig</div>
+    <div class="value" style="color:var(--green)">7. maj</div>
+    <div class="note">3,5 uge før kontrakt slut</div>
+  </div>
+  <div class="summary-card">
+    <div class="label">I dag</div>
+    <div class="value" style="color:var(--blue)" id="card-today">—</div>
+    <div class="note" id="card-today-note"></div>
+  </div>
+</div>
+
+<!-- BUDGET BAR -->
+<div class="section">
+  <div class="section-title">Timebudget (135 timer)</div>
+  <div style="background:var(--card); border:1px solid var(--border); border-radius:10px; padding:16px;">
+    <div class="budget-bar" id="budget-bar"></div>
+    <div id="budget-status" style="font-size:12px; color:var(--gray);"></div>
+  </div>
+</div>
+
+<!-- TOOLBAR -->
+<div class="toolbar">
+  <button class="primary" onclick="exportData()">Kopiér status</button>
+  <button onclick="resetAll()">Nulstil alt</button>
+  <span style="font-size:12px; color:var(--gray); align-self:center;" id="last-saved"></span>
+</div>
+
+<!-- WBS TABLE -->
+<div class="section">
+  <div class="section-title">Arbejdspakker</div>
+  <table id="wbs-table">
+    <thead>
+      <tr>
+        <th style="width:30px"></th>
+        <th style="width:36px">Nr.</th>
+        <th>Arbejdspakke</th>
+        <th style="width:55px">Timer</th>
+        <th style="width:70px">Status</th>
+        <th style="width:65px">Start</th>
+        <th style="width:65px">Slut</th>
+        <th style="width:75px">Afsluttet</th>
+        <th>Definition of done</th>
+      </tr>
+    </thead>
+    <tbody id="wbs-body"></tbody>
+  </table>
+</div>
+
+<!-- GANTT -->
+<div class="section">
+  <div class="section-title">Tidslinje</div>
+  <div class="gantt-container">
+    <div class="gantt-header">
+      <div></div>
+      <div class="gantt-months">
+        <div>Marts</div><div>April</div><div>Maj</div><div>Juni</div>
+      </div>
+    </div>
+    <div id="gantt-body"></div>
+    <div class="legend">
+      <div class="legend-item"><div class="legend-dot" style="background:var(--blue)"></div> F0</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div> F1</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--amber)"></div> F2</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--purple)"></div> F3</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--teal)"></div> F4</div>
+      <div class="legend-item"><div style="width:2px; height:14px; background:var(--red);"></div> I dag</div>
+      <div class="legend-item"><div style="width:1px; height:14px; background:#94a3b8;"></div> Kontrakt 1/6</div>
+    </div>
+  </div>
+</div>
+
+<!-- DELIVERABLES -->
+<div class="section">
+  <div class="section-title">Nøgleleverancer</div>
+  <table>
+    <thead><tr><th style="width:50px">Fase</th><th>Leverance</th><th style="width:90px">Planlagt</th><th style="width:120px">Modtager</th></tr></thead>
+    <tbody>
+      <tr><td>0</td><td>WBS + procesplan + mødeplan</td><td>18. mar</td><td>Stinne Bjerg</td></tr>
+      <tr><td>1</td><td>Indlæsningsnotat + områdekort + dialogplan</td><td>27. mar</td><td>Stinne Bjerg</td></tr>
+      <tr><td>2</td><td>Referat Jens Thornsen + godkendt spørgeguide</td><td>10. apr</td><td>Stinne / Jens T</td></tr>
+      <tr><td>3</td><td>Opsamlingsnotat fra erhvervsdialog</td><td>23. apr</td><td>Stinne Bjerg</td></tr>
+      <tr><td>4</td><td>Servicetjek-rapport + politisk dagsorden</td><td>7. maj</td><td>Stinne / udvalg</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- NOTES -->
+<div class="section">
+  <div class="section-title">Forudsætninger og risici</div>
+  <div class="note-box">
+    <strong>Kontrakt:</strong> Tillæg 1, 27/2-2026. Periode 1/3–1/6. Max 135 t. Hvidbog afsluttet (31,5 t). Restbudget: 103,5 t.<br><br>
+    <strong>Fase 5 (KPT):</strong> Udgår — afklaret med Stinne 18/3. Var et generelt spørgsmål, ikke del af denne opgave.<br><br>
+    <strong>Kritisk sti:</strong> 0.1 → 1.1 → 1.3 → 2.1 → 2.2 → 2.3 → 3.1 → 3.3 → 4.2 → 4.3 → 4.4<br><br>
+    <strong>Risici:</strong><br>
+    <span class="risk-tag risk-med">Middel</span> Adgang til erhvervsdrivende — kontaktliste fra Jens Thornsen er nøglen<br>
+    <span class="risk-tag risk-med">Middel</span> 1,5 t buffer = ingen plads til ad hoc<br>
+    <span class="risk-tag risk-low">Lav</span> Afgrænsning "lokale erhvervsområder" — afstem med Stinne tidligt<br><br>
+    <strong>eDoc sagsnr.:</strong> 26-003021 og 25-025055
+  </div>
+</div>
+
+<script>
+const STORAGE_KEY = 'wbs_servicetjek_roskilde';
+const TOTAL_BUDGET = 135;
+const HVIDBOG = 31.5;
+const AVAILABLE = TOTAL_BUDGET - HVIDBOG;
+
+const phases = [
+  { id: 'f0', label: 'Fase 0 — Procesplan', color: 'var(--blue)', bgColor: 'var(--blue-light)', tasks: [
+    { id: '0.1', name: 'WBS, estimat og procesplan', hours: 2, dep: '—', dod: 'Godkendt WBS med timer, datoer, afhængigheder', start: '18/3', end: '18/3' },
+    { id: '0.2', name: 'Mødeplan: book Stinne + Jens Thornsen', hours: 2, dep: '—', dod: 'Mødedatoer i kalenderen for Fase 1–3', start: '18/3', end: '18/3' },
+    { id: '0.3', name: 'Procesnotat: afgrænsning, metode, forudsætninger', hours: 2, dep: '0.1', dod: 'Kort notat med scope, metode og leveranceplan', start: '18/3', end: '18/3' },
+  ]},
+  { id: 'f1', label: 'Fase 1 — Indlæsning og kortlægning', color: 'var(--green)', bgColor: 'var(--green-light)', tasks: [
+    { id: '1.1', name: 'Indlæsning: planstrategi, servicetjek 2013, politisk mandat', hours: 4, dep: '0.1', dod: 'Notat med nøglefund, politisk ramme, åbne spørgsmål', start: '18/3', end: '25/3' },
+    { id: '1.2', name: 'Områdeafgrænsning: kort over erhvervsområder', hours: 6, dep: '0.1', dod: 'Kort + dataskema pr. område. Godkendt af Stinne', start: '25/3', end: '27/3' },
+    { id: '1.3', name: 'Dialogplan: metode, målgruppe, spørgsmål', hours: 4, dep: '1.1', dod: 'Godkendt dialogplan klar til Jens Thornsen-møde', start: '27/3', end: '27/3' },
+    { id: '1.4', name: 'Besigtigelse af erhvervsområder', hours: 8, dep: '1.2', dod: 'Fotos og observationsnoter pr. område', start: '27/3', end: '30/3' },
+  ]},
+  { id: 'f2', label: 'Fase 2 — Sparring og dialogforberedelse', color: 'var(--amber)', bgColor: 'var(--amber-light)', tasks: [
+    { id: '2.1', name: 'Møde med Jens Thornsen (Roskilde Handel & Erhverv)', hours: 2, dep: '1.1, 1.3', dod: 'Referat med input + kontaktliste til erhvervsdrivende', start: '30/3', end: '30/3' },
+    { id: '2.2', name: 'Opdateret dialogplan + spørgeguide', hours: 4, dep: '2.1', dod: 'Endelig dialogplan og interviewguide klar', start: '8/4', end: '8/4' },
+    { id: '2.3', name: 'Godkendelse hos Stinne Bjerg', hours: 2, dep: '2.2', dod: 'Skriftlig OK til erhvervsdialog', start: '8/4', end: '10/4' },
+    { id: '2.4', name: 'Udsendelse af spørgeskema + mødeinvitationer', hours: 2, dep: '2.3', dod: 'Spørgeskema udsendt, interviews booket', start: '10/4', end: '10/4' },
+  ]},
+  { id: 'f3', label: 'Fase 3 — Erhvervsdialog', color: 'var(--purple)', bgColor: 'var(--purple-light)', tasks: [
+    { id: '3.1', name: 'Interviews / besøg hos erhvervsdrivende', hours: 16, dep: '2.3', dod: 'Min. 8–12 interviews gennemført, noter skrevet', start: '10/4', end: '16/4' },
+    { id: '3.2', name: 'Spørgeskema — opsamling og databehandling', hours: 6, dep: '2.4', dod: 'Svar opsamlet og opsummeret i datasæt', start: '16/4', end: '20/4' },
+    { id: '3.3', name: 'Opsamlingsnotat fra erhvervsdialog', hours: 6, dep: '3.1, 3.2', dod: 'Samlet opsamling: temaer, udfordringer, anbefalinger', start: '20/4', end: '23/4' },
+  ]},
+  { id: 'f4', label: 'Fase 4 — Analyse og rapport', color: 'var(--teal)', bgColor: 'var(--teal-light)', tasks: [
+    { id: '4.1', name: 'Analyse: virksomhedsdata, restrummelighed, LP\'er', hours: 10, dep: '1.2, 3.1', dod: 'Dataanalyse pr. område: plan, virksomheder, udfordringer', start: '23/4', end: '27/4' },
+    { id: '4.2', name: 'Servicetjek-rapport (udkast)', hours: 18, dep: '3.3, 4.1', dod: 'Færdigt rapportudkast med resultater + anbefalinger', start: '27/4', end: '4/5' },
+    { id: '4.3', name: 'Review med Stinne + færdiggørelse', hours: 4, dep: '4.2', dod: 'Endelig rapport klar til politisk behandling', start: '4/5', end: '7/5' },
+    { id: '4.4', name: 'Politisk dagsorden / sagsfremstilling', hours: 4, dep: '4.3', dod: 'Udkast til politisk dagsorden', start: '7/5', end: '7/5' },
+  ]},
+];
+
+// === STATE ===
+let state = loadState();
+
+function loadState() {
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if (raw) return JSON.parse(raw);
+  } catch(e) {}
+  return {};
+}
+
+function saveState() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+  const el = document.getElementById('last-saved');
+  if (el) el.textContent = 'Gemt ' + new Date().toLocaleTimeString('da-DK', {hour:'2-digit',minute:'2-digit'});
+}
+
+function getTaskState(id) {
+  return state[id] || { status: 'planlagt', doneDate: null };
+}
+
+function cycleStatus(id) {
+  const ts = getTaskState(id);
+  if (ts.status === 'planlagt') { ts.status = 'igang'; ts.doneDate = null; }
+  else if (ts.status === 'igang') { ts.status = 'faerdig'; ts.doneDate = new Date().toISOString().slice(0,10); }
+  else { ts.status = 'planlagt'; ts.doneDate = null; }
+  state[id] = ts;
+  saveState();
+  renderAll();
+}
+
+// === RENDER ===
+function renderAll() {
+  renderTable();
+  renderBudget();
+  renderGantt();
+  renderCards();
+}
+
+function renderTable() {
+  const tbody = document.getElementById('wbs-body');
+  tbody.innerHTML = '';
+
+  phases.forEach(phase => {
+    const phaseTasks = phase.tasks;
+    const doneTasks = phaseTasks.filter(t => getTaskState(t.id).status === 'faerdig').length;
+    const phaseTotal = phaseTasks.reduce((s,t) => s + t.hours, 0);
+    const phasePct = phaseTasks.length > 0 ? Math.round(doneTasks / phaseTasks.length * 100) : 0;
+
+    const phaseRow = document.createElement('tr');
+    phaseRow.className = 'phase-row';
+    phaseRow.innerHTML = `<td colspan="9" style="background:${phase.bgColor}; color:${phase.color};">
+      <div style="display:flex;align-items:center;gap:12px;">
+        <span>${phase.label}</span>
+        <span class="badge" style="background:${phase.color};color:#fff;">${phaseTotal} t</span>
+        <span style="font-size:12px;opacity:0.7;">${doneTasks}/${phaseTasks.length}</span>
+        <div style="flex:1;max-width:120px;">
+          <div class="progress-bar"><div class="progress-fill" style="width:${phasePct}%;background:${phase.color}"></div></div>
+        </div>
+        <span style="font-size:12px;font-weight:700;">${phasePct}%</span>
+      </div>
+    </td>`;
+    tbody.appendChild(phaseRow);
+
+    phaseTasks.forEach(task => {
+      const ts = getTaskState(task.id);
+      const tr = document.createElement('tr');
+      tr.className = 'task-row' + (ts.status === 'faerdig' ? ' done' : '') + (ts.status === 'igang' ? ' active' : '');
+
+      const cbClass = ts.status === 'faerdig' ? 'cb checked' : (ts.status === 'igang' ? 'cb active' : 'cb');
+      const cbIcon = ts.status === 'faerdig' ? '✓' : (ts.status === 'igang' ? '▶' : '');
+      const spClass = 'status-pill sp-' + ts.status;
+      const spText = ts.status === 'planlagt' ? 'Planlagt' : (ts.status === 'igang' ? 'I gang' : 'Færdig');
+      const doneCell = ts.doneDate ? formatDate(ts.doneDate) : '';
+
+      tr.innerHTML = `
+        <td><div class="${cbClass}" onclick="cycleStatus('${task.id}')">${cbIcon}</div></td>
+        <td style="font-weight:600;color:var(--gray);">${task.id}</td>
+        <td class="task-name">${task.name}</td>
+        <td style="text-align:center;font-weight:600;">${task.hours}</td>
+        <td><span class="${spClass}" onclick="cycleStatus('${task.id}')">${spText}</span></td>
+        <td style="font-size:12px;">${task.start}</td>
+        <td style="font-size:12px;">${task.end}</td>
+        <td class="done-date-cell">${doneCell}</td>
+        <td style="font-size:12px;color:var(--gray);">${task.dod}</td>
+      `;
+      tbody.appendChild(tr);
+    });
+  });
+}
+
+function renderBudget() {
+  let total04 = 0;
+  phases.forEach(p => { p.tasks.forEach(t => total04 += t.hours); });
+  const buffer = AVAILABLE - total04;
+  const overBudget = buffer < 0;
+
+  document.getElementById('card-servicetjek').textContent = total04 + ' t';
+  document.getElementById('card-servicetjek-note').textContent = overBudget ? 'OVER BUDGET' : 'Inden for rammen';
+  document.getElementById('card-buffer').textContent = buffer.toFixed(1) + ' t';
+
+  const pctH = HVIDBOG/TOTAL_BUDGET*100;
+  const pctS = Math.min(total04,AVAILABLE)/TOTAL_BUDGET*100;
+  const pctB = Math.max(0,buffer)/TOTAL_BUDGET*100;
+  document.getElementById('budget-bar').innerHTML = `
+    <div style="width:${pctH}%;background:var(--green)">Hvidbog 31,5</div>
+    <div style="width:${pctS}%;background:var(--blue)">Servicetjek ${total04}</div>
+    <div style="width:${pctB}%;background:var(--gray)">${buffer.toFixed(1)}</div>`;
+  document.getElementById('budget-status').textContent = `Brugt: ${(HVIDBOG+total04).toFixed(1)} / 135 t — Buffer: ${buffer.toFixed(1)} t`;
+}
+
+function renderCards() {
+  const allTasks = phases.flatMap(p => p.tasks);
+  const done = allTasks.filter(t => getTaskState(t.id).status === 'faerdig').length;
+  const pct = Math.round(done / allTasks.length * 100);
+
+  document.getElementById('card-progress').textContent = pct + '%';
+  document.getElementById('progress-fill').style.width = pct + '%';
+  document.getElementById('card-progress-note').textContent = `${done} af ${allTasks.length} opgaver`;
+
+  const now = new Date();
+  const months = ['jan','feb','mar','apr','maj','jun','jul','aug','sep','okt','nov','dec'];
+  document.getElementById('card-today').textContent = now.getDate() + '. ' + months[now.getMonth()];
+  const weekNr = getWeekNumber(now);
+  document.getElementById('card-today-note').textContent = 'Uge ' + weekNr;
+}
+
+function renderGantt() {
+  const ganttStart = new Date(2026, 2, 1);
+  const ganttEnd = new Date(2026, 5, 30);
+  const ganttDays = (ganttEnd - ganttStart) / (1000*60*60*24);
+  const dayPos = d => Math.max(0, Math.min(100, ((d - ganttStart) / (1000*60*60*24)) / ganttDays * 100));
+  const contractEnd = new Date(2026, 5, 1);
+  const today = new Date();
+  const easterStart = new Date(2026, 2, 31);
+  const easterEnd = new Date(2026, 3, 4);
+
+  const body = document.getElementById('gantt-body');
+  body.innerHTML = '';
+
+  phases.forEach(phase => {
+    const phaseRow = document.createElement('div');
+    phaseRow.className = 'gantt-row phase';
+    const pLabel = document.createElement('div');
+    pLabel.className = 'gantt-label';
+    pLabel.style.color = phase.color;
+    pLabel.textContent = phase.label;
+    phaseRow.appendChild(pLabel);
+    phaseRow.appendChild(document.createElement('div'));
+    body.appendChild(phaseRow);
+
+    phase.tasks.forEach(task => {
+      const ts = getTaskState(task.id);
+      const row = document.createElement('div');
+      row.className = 'gantt-row';
+      const label = document.createElement('div');
+      label.className = 'gantt-label';
+      label.style.opacity = ts.status === 'faerdig' ? '0.5' : '1';
+      label.textContent = `${ts.status === 'faerdig' ? '✓ ' : ''}${task.id} ${task.name.substring(0,30)}${task.name.length > 30 ? '…' : ''}`;
+      row.appendChild(label);
+
+      const barArea = document.createElement('div');
+      barArea.style.cssText = 'position:relative;height:32px;';
+
+      // Easter zone
+      const ez = document.createElement('div');
+      ez.style.cssText = `position:absolute;top:0;bottom:0;background:repeating-linear-gradient(45deg,transparent,transparent 3px,rgba(217,119,6,0.08) 3px,rgba(217,119,6,0.08) 6px);left:${dayPos(easterStart)}%;width:${dayPos(easterEnd)-dayPos(easterStart)}%;z-index:1;`;
+      barArea.appendChild(ez);
+
+      // Contract end line
+      const ce = document.createElement('div');
+      ce.style.cssText = `position:absolute;top:0;bottom:0;width:1px;background:#94a3b8;left:${dayPos(contractEnd)}%;z-index:2;`;
+      barArea.appendChild(ce);
+
+      // Today line
+      const td = document.createElement('div');
+      td.style.cssText = `position:absolute;top:0;bottom:0;width:2px;background:var(--red);left:${dayPos(today)}%;z-index:3;`;
+      barArea.appendChild(td);
+
+      const s = parseDate(task.start);
+      const e = parseDate(task.end);
+      if (s && e) {
+        const left = dayPos(s);
+        const width = dayPos(e) - left;
+        const bar = document.createElement('div');
+        const isDone = ts.status === 'faerdig';
+        bar.style.cssText = `position:absolute;left:${left}%;width:${Math.max(width, 0.8)}%;background:${isDone ? 'var(--green)' : phase.color};opacity:${isDone ? '0.5' : '0.85'};top:6px;height:20px;border-radius:4px;z-index:2;`;
+        barArea.appendChild(bar);
+      }
+
+      row.appendChild(barArea);
+      body.appendChild(row);
+    });
+  });
+}
+
+// === HELPERS ===
+function parseDate(s) {
+  if (!s || s === '—') return null;
+  const [d,m] = s.split('/').map(Number);
+  return new Date(2026, m-1, d);
+}
+
+function formatDate(isoStr) {
+  const d = new Date(isoStr);
+  return d.getDate() + '/' + (d.getMonth()+1);
+}
+
+function getWeekNumber(d) {
+  const dt = new Date(Date.UTC(d.getFullYear(), d.getMonth(), d.getDate()));
+  dt.setUTCDate(dt.getUTCDate() + 4 - (dt.getUTCDay()||7));
+  const yearStart = new Date(Date.UTC(dt.getUTCFullYear(),0,1));
+  return Math.ceil((((dt - yearStart) / 86400000) + 1)/7);
+}
+
+function exportData() {
+  let lines = ['WBS Servicetjek — Status ' + new Date().toLocaleDateString('da-DK'), ''];
+  phases.forEach(phase => {
+    const doneTasks = phase.tasks.filter(t => getTaskState(t.id).status === 'faerdig').length;
+    lines.push(`${phase.label} (${doneTasks}/${phase.tasks.length})`);
+    phase.tasks.forEach(t => {
+      const ts = getTaskState(t.id);
+      const icon = ts.status === 'faerdig' ? '✓' : (ts.status === 'igang' ? '▶' : '○');
+      const done = ts.doneDate ? ` [${ts.doneDate}]` : '';
+      lines.push(`  ${icon} ${t.id}: ${t.name} (${t.hours}t)${done}`);
+    });
+    lines.push('');
+  });
+  const allTasks = phases.flatMap(p => p.tasks);
+  const doneCount = allTasks.filter(t => getTaskState(t.id).status === 'faerdig').length;
+  lines.push(`Fremdrift: ${doneCount}/${allTasks.length} (${Math.round(doneCount/allTasks.length*100)}%)`);
+  const text = lines.join('\n');
+  navigator.clipboard.writeText(text).then(() => {
+    const btn = event.target;
+    btn.textContent = '✓ Kopieret';
+    setTimeout(() => { btn.textContent = 'Kopiér status'; }, 2000);
+  }).catch(() => { prompt('Kopiér:', text); });
+}
+
+function resetAll() {
+  if (confirm('Nulstil alle opgavestatus? Data slettes fra browseren.')) {
+    state = {};
+    localStorage.removeItem(STORAGE_KEY);
+    renderAll();
+  }
+}
+
+// === INIT ===
+renderAll();
+</script>
+
+</body>
+</html>
