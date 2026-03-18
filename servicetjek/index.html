@@ -233,9 +233,9 @@ let saving = false;
 
 const phases = [
   { id: 'f0', label: 'Fase 0 — Procesplan', color: 'var(--blue)', bgColor: 'var(--blue-light)', tasks: [
-    { id: '0.1', name: 'WBS, estimat og procesplan', hours: 2, dep: '—', dod: 'Godkendt WBS med timer, datoer, afhængigheder', start: '18/3', end: '18/3', lev: 'L0: Procesplan (WBS) + mødeplan' },
+    { id: '0.1', name: 'WBS, estimat og procesplan', hours: 2, dep: '—', dod: 'Godkendt WBS med timer, datoer, afhængigheder', start: '18/3', end: '18/3' },
     { id: '0.2', name: 'Mødeplan: book Stinne + Jens Thornsen', hours: 2, dep: '—', dod: 'Mødedatoer i kalenderen for Fase 1–3', start: '18/3', end: '18/3' },
-    { id: '0.3', name: 'Procesnotat: afgrænsning, metode, forudsætninger', hours: 2, dep: '0.1', dod: 'Kort notat med scope, metode og leveranceplan', start: '18/3', end: '18/3' },
+    { id: '0.3', name: 'Procesnotat: afgrænsning, metode, forudsætninger', hours: 2, dep: '0.1', dod: 'Kort notat med scope, metode og leveranceplan', start: '18/3', end: '18/3', lev: 'L0: Procesplan (WBS) med estimat og mødeplan' },
   ]},
   { id: 'f1', label: 'Fase 1 — Indlæsning og kortlægning', color: 'var(--green)', bgColor: 'var(--green-light)', tasks: [
     { id: '1.1', name: 'Indlæsning: planstrategi, servicetjek 2013, politisk mandat', hours: 4, dep: '0.1', dod: 'Notat med nøglefund, politisk ramme, åbne spørgsmål', start: '18/3', end: '25/3' },
