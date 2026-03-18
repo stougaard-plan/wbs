@@ -1,6 +1,10 @@
 {
   "0.1": {
-    "status": "planlagt",
+    "status": "igang",
+    "doneDate": null
+  },
+  "0.2": {
+    "status": "igang",
     "doneDate": null
   }
 }
