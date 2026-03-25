@@ -90,7 +90,7 @@
 <body>
 
 <h1>WBS — Servicetjek af erhvervsområder</h1>
-<p class="subtitle">Roskilde Kommune · Stougaard Plan ApS · Tillæg 1: 1/3–1/6 2026 · Opgavebeskrivelse v1 (uden KPT)</p>
+<p class="subtitle">Roskilde Kommune · Stougaard Plan ApS · Tillæg 1: 1/3–1/6 2026 · V2 (sekventiel tilgang m. borgermøder, rev. 25/3)</p>
 
 <!-- SUMMARY CARDS -->
 <div class="summary-grid">
@@ -98,7 +98,7 @@
     <div class="label">Fremdrift</div>
     <div class="value" style="color:var(--teal)" id="card-progress">0%</div>
     <div style="margin-top:6px"><div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%;background:var(--teal)"></div></div></div>
-    <div class="note" id="card-progress-note">0 af 17 opgaver</div>
+    <div class="note" id="card-progress-note">0 af 18 opgaver</div>
   </div>
   <div class="summary-card">
     <div class="label">Tillæg 1 — total</div>
@@ -117,8 +117,8 @@
   </div>
   <div class="summary-card">
     <div class="label">Forventet færdig</div>
-    <div class="value" style="color:var(--green)">7. maj</div>
-    <div class="note">3,5 uge før kontrakt slut</div>
+    <div class="value" style="color:var(--amber)">Dec. 2026</div>
+    <div class="note">Kræver forlængelse (Tillæg 2)</div>
   </div>
   <div class="summary-card">
     <div class="label">I dag</div>
@@ -172,7 +172,7 @@
     <div class="gantt-header">
       <div></div>
       <div class="gantt-months">
-        <div>Marts</div><div>April</div><div>Maj</div><div>Juni</div>
+        <div>Mar</div><div>Apr</div><div>Maj</div><div>Jun</div><div>Jul</div><div>Aug</div><div>Sep</div><div>Okt</div><div>Nov</div><div>Dec</div>
       </div>
     </div>
     <div id="gantt-body"></div>
@@ -194,13 +194,14 @@
   <table>
     <thead><tr><th style="width:40px">Nr.</th><th>Leverance</th><th style="width:100px">Format</th><th style="width:60px">Opgave</th><th style="width:75px">Planlagt</th><th style="width:85px">Komm.frist</th></tr></thead>
     <tbody>
-      <tr><td>L0</td><td>Procesplan (WBS) med estimat og mødeplan</td><td>Notat / mail</td><td>0.3</td><td>18. mar</td><td>21. mar</td></tr>
-      <tr><td>L1</td><td>Oversigtsnotat med kortlægning + dialogplan v1</td><td>Notat (Word/PDF)</td><td>1.3</td><td>27. mar</td><td>30. mar</td></tr>
-      <tr><td>L2</td><td>Dialogplan v2 (efter sparring m. Jens Thornsen)</td><td>Notat (Word/PDF)</td><td>2.2</td><td>8. apr</td><td>10. apr</td></tr>
-      <tr><td>L3</td><td>Opsamling fra erhvervsdialog</td><td>Notat / rådata</td><td>3.3</td><td>23. apr</td><td>27. apr</td></tr>
-      <tr><td>L4</td><td>Første udkast til servicetjek-rapport</td><td>Rapport (Word/PDF)</td><td>4.2</td><td>4. maj</td><td>Møde aftales</td></tr>
+      <tr><td>L0</td><td>Procesplan v2 + WBS + mødereferat JT</td><td>Notat (Word)</td><td>0.3</td><td>25. mar ✓</td><td>1. apr</td></tr>
+      <tr><td>L1</td><td>Indlæsningsnotat + dialogplan v2</td><td>Notat (Word)</td><td>1.4</td><td>25. mar ✓</td><td>1. apr</td></tr>
+      <tr><td>L2</td><td>Intern analyse Møllehaven (kortlægning + LP-gennemgang)</td><td>Notat (Word)</td><td>1.4</td><td>18. apr</td><td>22. apr</td></tr>
+      <tr><td>L3</td><td>Borgermøde-materiale Møllehaven (invitation + oplæg)</td><td>Invitation + slides</td><td>3.2</td><td>30. apr</td><td>—</td></tr>
+      <tr><td>L3b</td><td>Opsamling borgermøde Møllehaven</td><td>Notat (Word)</td><td>3.4</td><td>Maj</td><td>—</td></tr>
+      <tr><td>L4</td><td>Samlet servicetjek-rapport (alle 7 områder)</td><td>Rapport (Word/PDF)</td><td>4.4</td><td>Nov–dec</td><td>Møde aftales</td></tr>
     </tbody>
-    <tfoot><tr><td colspan="6" style="font-size:11px;color:var(--gray);padding:8px;">Alle leverancer sendes skriftligt med kommenteringsfrist. L4: møde med Stinne aftales når tidsplan er klar.</td></tr></tfoot>
+    <tfoot><tr><td colspan="6" style="font-size:11px;color:var(--gray);padding:8px;">L0–L1 afleveret 25/3. L2–L3b inden for Tillæg 1 (1/3–1/6). L4 kræver kontraktforlængelse. Alle leverancer sendes skriftligt med kommenteringsfrist.</td></tr></tfoot>
   </table>
 </div>
 
@@ -208,14 +209,15 @@
 <div class="section">
   <div class="section-title">Forudsætninger og risici</div>
   <div class="note-box">
-    <strong>Kontrakt:</strong> Tillæg 1, 27/2-2026. Periode 1/3–1/6. Max 135 t. Hvidbog afsluttet (35 t, heraf 3,5 t ekstra ift. estimat). Restbudget til servicetjek: 100 t.<br><br>
-    <strong>Fase 5 (KPT):</strong> Udgår — afklaret med Stinne 18/3. Var et generelt spørgsmål, ikke del af denne opgave.<br><br>
-    <strong>Leveringsform:</strong> Alle leverancer sendes skriftligt til Stinne med klar kommenteringsfrist. Ingen faste møder — vi mødes hvis behov opstår. L4 (servicetjek-rapport) forventes drøftet på møde; tidspunkt aftales når tidsplan er klar.<br><br>
-    <strong>Kritisk sti:</strong> 0.1 → 1.1 → 1.3 → 2.1 → 2.2 → 2.3 → 3.1 → 3.3 → 4.2 → 4.3 → 4.4<br><br>
+    <strong>Kontrakt:</strong> Tillæg 1, 27/2-2026. Periode 1/3–1/6. Max 135 t. Hvidbog afsluttet (35 t). Restbudget til servicetjek: 100 t. Fase 0–3 (64 t) er inden for budget. Fase 4 kræver kontraktforlængelse.<br><br>
+    <strong>Tilgang (ændret 25/3):</strong> Sekventiel med borgermøder. Start med Møllehaven/Jyllinge, derefter Himmelev + Gadstrup, og til sidst 4 resterende områder. Besluttet efter møde med Jens Thornsen 25/3.<br><br>
+    <strong>Leveringsform:</strong> Alle leverancer sendes skriftligt til Stinne med kommenteringsfrist. Borgermøder planlægges med min. 1 måneds varsel. Input til Anna (Erhvervsråd) senest ca. 30. maj.<br><br>
+    <strong>Kritisk sti:</strong> 0.1 → 1.1 → 1.3 → 1.4 → 2.1 → 3.1 → 3.2 → 3.3 → 3.4 → 4.1 → … → 4.4<br><br>
     <strong>Risici:</strong><br>
-    <span class="risk-tag risk-med">Middel</span> Adgang til erhvervsdrivende — kontaktliste fra Jens Thornsen er nøglen<br>
-    <span class="risk-tag risk-med">Middel</span> 1,5 t buffer = ingen plads til ad hoc<br>
-    <span class="risk-tag risk-low">Lav</span> Afgrænsning "lokale erhvervsområder" — afstem med Stinne tidligt<br><br>
+    <span class="risk-tag risk-high">Høj</span> Kontraktforlængelse nødvendig for Fase 4 (rapport + resterende områder)<br>
+    <span class="risk-tag risk-med">Middel</span> Borgermøde-deltagelse — kræver god invitation og relevant format<br>
+    <span class="risk-tag risk-med">Middel</span> Intern LP-analyse må IKKE nævne enkeltvirksomheder (JT-beslutning)<br>
+    <span class="risk-tag risk-low">Lav</span> Koordinering med Roskilde Handel og Erhverv (Morten Bo Berthelsen)<br><br>
     <strong>eDoc sagsnr.:</strong> 26-003021 og 25-025055
   </div>
 </div>
@@ -236,31 +238,35 @@ let saving = false;
 const phases = [
   { id: 'f0', label: 'Fase 0 — Procesplan', color: 'var(--blue)', bgColor: 'var(--blue-light)', tasks: [
     { id: '0.1', name: 'WBS, estimat og procesplan', hours: 2, dep: '—', dod: 'Godkendt WBS med timer, datoer, afhængigheder', start: '18/3', end: '18/3' },
-    { id: '0.2', name: 'Mødeplan: book Stinne + Jens Thornsen', hours: 2, dep: '—', dod: 'Mødedatoer i kalenderen for Fase 1–3', start: '18/3', end: '18/3' },
-    { id: '0.3', name: 'Procesnotat: afgrænsning, metode, forudsætninger', hours: 2, dep: '0.1', dod: 'Kort notat med scope, metode og leveranceplan', start: '18/3', end: '18/3', lev: 'L0: Procesplan (WBS) med estimat og mødeplan' },
+    { id: '0.2', name: 'Mødeplan: book Stinne + Jens Thornsen', hours: 2, dep: '—', dod: 'Mødedatoer i kalenderen', start: '18/3', end: '18/3' },
+    { id: '0.3', name: 'Procesnotat v2: revideret tilgang', hours: 2, dep: '0.1, 2.1', dod: 'L0 v2 med sekventiel tilgang og borgermøder', start: '25/3', end: '27/3', lev: 'L0: Procesplan v2' },
   ]},
   { id: 'f1', label: 'Fase 1 — Indlæsning og kortlægning', color: 'var(--green)', bgColor: 'var(--green-light)', tasks: [
     { id: '1.1', name: 'Indlæsning: planstrategi, servicetjek 2013, politisk mandat', hours: 4, dep: '0.1', dod: 'Notat med nøglefund, politisk ramme, åbne spørgsmål', start: '18/3', end: '25/3' },
-    { id: '1.2', name: 'Områdeafgrænsning: kort over erhvervsområder', hours: 6, dep: '0.1', dod: 'Kort + dataskema pr. område. Godkendt af Stinne', start: '25/3', end: '27/3' },
-    { id: '1.3', name: 'Dialogplan: metode, målgruppe, spørgsmål', hours: 4, dep: '1.1', dod: 'Godkendt dialogplan klar til Jens Thornsen-møde', start: '27/3', end: '27/3', lev: 'L1: Oversigtsnotat + kortlægning + dialogplan v1' },
-    { id: '1.4', name: 'Besigtigelse af erhvervsområder', hours: 8, dep: '1.2', dod: 'Fotos og observationsnoter pr. område', start: '27/3', end: '30/3' },
+    { id: '1.2', name: 'Områdeafgrænsning: kort over erhvervsområder', hours: 6, dep: '0.1', dod: 'Kort + dataskema pr. område. Godkendt af Stinne', start: '25/3', end: '8/4' },
+    { id: '1.3', name: 'Dialogplan v2: borgermøder, rækkefølge, tidsplan', hours: 4, dep: '1.1, 2.1', dod: 'Dialogplan v2 klar til godkendelse', start: '25/3', end: '27/3', lev: 'L1: Oversigtsnotat + dialogplan v2' },
+    { id: '1.4', name: 'Besigtigelse af Møllehaven (+ evt. Himmelev/Gadstrup)', hours: 8, dep: '1.2', dod: 'Fotos og observationsnoter', start: '8/4', end: '10/4' },
   ]},
-  { id: 'f2', label: 'Fase 2 — Sparring og dialogforberedelse', color: 'var(--amber)', bgColor: 'var(--amber-light)', tasks: [
-    { id: '2.1', name: 'Møde med Jens Thornsen (Erhvervschef, Roskilde Kommune)', hours: 2, dep: '1.1, 1.3', dod: 'Referat med input + kontaktliste til erhvervsdrivende', start: '25/3', end: '25/3' },
-    { id: '2.2', name: 'Opdateret dialogplan + spørgeguide', hours: 4, dep: '2.1', dod: 'Endelig dialogplan og interviewguide klar', start: '8/4', end: '8/4', lev: 'L2: Dialogplan v2 (efter sparring m. Jens)' },
-    { id: '2.3', name: 'Godkendelse hos Stinne Bjerg (skriftlig)', hours: 2, dep: '2.2', dod: 'Skriftlig OK til erhvervsdialog', start: '8/4', end: '10/4' },
-    { id: '2.4', name: 'Udsendelse af spørgeskema + mødeinvitationer', hours: 2, dep: '2.3', dod: 'Spørgeskema udsendt, interviews booket', start: '10/4', end: '10/4' },
+  { id: 'f2', label: 'Fase 2 — Sparring og koordinering', color: 'var(--amber)', bgColor: 'var(--amber-light)', tasks: [
+    { id: '2.1', name: 'Møde med Jens Thornsen (gennemført 25/3)', hours: 2, dep: '1.1, 1.3', dod: 'Referat med input + ny tilgang aftalt', start: '25/3', end: '25/3' },
+    { id: '2.2', name: 'Koordineringsmøde med Morten Bo Berthelsen (RH&E)', hours: 2, dep: '2.1', dod: 'Aftalt koordinering af borgermøder', start: '1/4', end: '8/4' },
+    { id: '2.3', name: 'Godkendelse hos Stinne (dialogplan v2 + L0 v2)', hours: 2, dep: '2.1', dod: 'Skriftlig OK til ny tilgang', start: '1/4', end: '8/4' },
+    { id: '2.4', name: 'Intern analyse Møllehaven: data, planforhold, uoverenst.', hours: 4, dep: '1.2', dod: 'Analyse klar som grundlag for borgermødeoplæg', start: '8/4', end: '18/4' },
   ]},
-  { id: 'f3', label: 'Fase 3 — Erhvervsdialog', color: 'var(--purple)', bgColor: 'var(--purple-light)', tasks: [
-    { id: '3.1', name: 'Interviews / besøg hos erhvervsdrivende', hours: 16, dep: '2.3', dod: 'Min. 8–12 interviews gennemført, noter skrevet', start: '10/4', end: '16/4' },
-    { id: '3.2', name: 'Spørgeskema — opsamling og databehandling', hours: 6, dep: '2.4', dod: 'Svar opsamlet og opsummeret i datasæt', start: '16/4', end: '20/4' },
-    { id: '3.3', name: 'Opsamlingsnotat fra erhvervsdialog', hours: 6, dep: '3.1, 3.2', dod: 'Samlet opsamling: temaer, udfordringer, anbefalinger', start: '20/4', end: '23/4', lev: 'L3: Opsamling fra erhvervsdialog' },
+  { id: 'f3', label: 'Fase 3 — Borgermøde Møllehaven', color: 'var(--purple)', bgColor: 'var(--purple-light)', tasks: [
+    { id: '3.1', name: 'Borgermødeoplæg Møllehaven', hours: 6, dep: '2.4', dod: 'Oplæg (4–6 sider) klar til invitation og møde', start: '14/4', end: '18/4', lev: 'L2: Borgermødeoplæg Møllehaven' },
+    { id: '3.2', name: 'Invitation til borgermøde (1 md. varsel)', hours: 2, dep: '2.3', dod: 'Invitation udsendt fra kommunen', start: '14/4', end: '16/4' },
+    { id: '3.3', name: 'Borgermøde Møllehaven (medio maj)', hours: 4, dep: '3.1, 3.2', dod: 'Borgermøde gennemført, noter taget', start: '12/5', end: '14/5' },
+    { id: '3.4', name: 'Opsamlingsnotat fra borgermøde', hours: 6, dep: '3.3', dod: 'Samlet opsamling: temaer, udfordringer, forslag', start: '14/5', end: '21/5', lev: 'L3: Opsamling fra borgermøde Møllehaven' },
+    { id: '3.5', name: 'Input til Anna (Erhvervsråd 20/6)', hours: 4, dep: '3.4', dod: 'Kort notat om status til Erhvervsrådet', start: '21/5', end: '30/5', lev: 'L3b: Input til Anna (Erhvervsråd)' },
+    { id: '3.6', name: 'Forberedelse: intern analyse Himmelev + Gadstrup', hours: 4, dep: '1.2', dod: 'Analyser klar til borgermødeforberedelse', start: '21/5', end: '1/6' },
   ]},
-  { id: 'f4', label: 'Fase 4 — Analyse og rapport', color: 'var(--teal)', bgColor: 'var(--teal-light)', tasks: [
-    { id: '4.1', name: 'Analyse: virksomhedsdata, restrummelighed, LP\'er', hours: 10, dep: '1.2, 3.1', dod: 'Dataanalyse pr. område: plan, virksomheder, udfordringer', start: '23/4', end: '27/4' },
-    { id: '4.2', name: 'Servicetjek-rapport (udkast)', hours: 18, dep: '3.3, 4.1', dod: 'Færdigt rapportudkast med resultater + anbefalinger', start: '27/4', end: '4/5', lev: 'L4: Første udkast til servicetjek-rapport' },
-    { id: '4.3', name: 'Review med Stinne + færdiggørelse', hours: 4, dep: '4.2', dod: 'Endelig rapport klar til politisk behandling', start: '4/5', end: '7/5' },
-    { id: '4.4', name: 'Politisk dagsorden / sagsfremstilling', hours: 4, dep: '4.3', dod: 'Udkast til politisk dagsorden', start: '7/5', end: '7/5' },
+  { id: 'f4', label: 'Fase 4 — Runde 2–4 + rapport (kræver forlængelse)', color: 'var(--teal)', bgColor: 'var(--teal-light)', tasks: [
+    { id: '4.1', name: 'Borgermøder Himmelev + Gadstrup (juni)', hours: 0, dep: '3.6', dod: 'Borgermøder gennemført + opsamling', start: '1/6', end: '25/6' },
+    { id: '4.2', name: 'Borgermøder Svogerslev + Viby (sept/okt)', hours: 0, dep: '4.1', dod: 'Borgermøder gennemført + opsamling', start: '—', end: '—' },
+    { id: '4.3', name: 'Borgermøder Gundsømagle + Snoldelev (okt/nov)', hours: 0, dep: '4.2', dod: 'Borgermøder gennemført + opsamling', start: '—', end: '—' },
+    { id: '4.4', name: 'Samlet analyse og rapport', hours: 0, dep: '4.3', dod: 'Rapport med anbefalinger pr. område', start: '—', end: '—', lev: 'L4: Servicetjek-rapport (samlet)' },
+    { id: '4.5', name: 'Politisk behandling (PTU)', hours: 0, dep: '4.4', dod: 'Udkast til politisk dagsorden', start: '—', end: '—' },
   ]},
 ];
 
@@ -423,7 +429,7 @@ function renderCards() {
 
 function renderGantt() {
   const ganttStart = new Date(2026, 2, 1);
-  const ganttEnd = new Date(2026, 5, 30);
+  const ganttEnd = new Date(2026, 11, 31);
   const ganttDays = (ganttEnd - ganttStart) / (1000*60*60*24);
   const dayPos = d => Math.max(0, Math.min(100, ((d - ganttStart) / (1000*60*60*24)) / ganttDays * 100));
   const contractEnd = new Date(2026, 5, 1);
