@@ -103,7 +103,7 @@
   <div class="summary-card">
     <div class="label">Tillæg 1 — total</div>
     <div class="value">135 t</div>
-    <div class="note">Hvidbog 31,5 t afsluttet</div>
+    <div class="note">Hvidbog 35 t afsluttet (+3,5 t)</div>
   </div>
   <div class="summary-card">
     <div class="label">Servicetjek (F0–F4)</div>
@@ -113,7 +113,7 @@
   <div class="summary-card">
     <div class="label">Buffer</div>
     <div class="value" style="color:var(--gray)" id="card-buffer">1,5 t</div>
-    <div class="note">Af 103,5 t tilgængelig</div>
+    <div class="note">Af 100 t tilgængelig</div>
   </div>
   <div class="summary-card">
     <div class="label">Forventet færdig</div>
@@ -208,7 +208,7 @@
 <div class="section">
   <div class="section-title">Forudsætninger og risici</div>
   <div class="note-box">
-    <strong>Kontrakt:</strong> Tillæg 1, 27/2-2026. Periode 1/3–1/6. Max 135 t. Hvidbog afsluttet (31,5 t). Restbudget: 103,5 t.<br><br>
+    <strong>Kontrakt:</strong> Tillæg 1, 27/2-2026. Periode 1/3–1/6. Max 135 t. Hvidbog afsluttet (35 t, heraf 3,5 t ekstra ift. estimat). Restbudget til servicetjek: 100 t.<br><br>
     <strong>Fase 5 (KPT):</strong> Udgår — afklaret med Stinne 18/3. Var et generelt spørgsmål, ikke del af denne opgave.<br><br>
     <strong>Leveringsform:</strong> Alle leverancer sendes skriftligt til Stinne med klar kommenteringsfrist. Ingen faste møder — vi mødes hvis behov opstår. L4 (servicetjek-rapport) forventes drøftet på møde; tidspunkt aftales når tidsplan er klar.<br><br>
     <strong>Kritisk sti:</strong> 0.1 → 1.1 → 1.3 → 2.1 → 2.2 → 2.3 → 3.1 → 3.3 → 4.2 → 4.3 → 4.4<br><br>
@@ -222,7 +222,7 @@
 
 <script>
 const TOTAL_BUDGET = 135;
-const HVIDBOG = 31.5;
+const HVIDBOG = 35;
 const AVAILABLE = TOTAL_BUDGET - HVIDBOG;
 
 // === GITHUB PERSISTENCE ===
@@ -399,7 +399,7 @@ function renderBudget() {
   const pctS = Math.min(total04,AVAILABLE)/TOTAL_BUDGET*100;
   const pctB = Math.max(0,buffer)/TOTAL_BUDGET*100;
   document.getElementById('budget-bar').innerHTML = `
-    <div style="width:${pctH}%;background:var(--green)">Hvidbog 31,5</div>
+    <div style="width:${pctH}%;background:var(--green)">Hvidbog 35</div>
     <div style="width:${pctS}%;background:var(--blue)">Servicetjek ${total04}</div>
     <div style="width:${pctB}%;background:var(--gray)">${buffer.toFixed(1)}</div>`;
   document.getElementById('budget-status').textContent = `Brugt: ${(HVIDBOG+total04).toFixed(1)} / 135 t — Buffer: ${buffer.toFixed(1)} t`;
