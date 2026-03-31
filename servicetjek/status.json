@@ -8,14 +8,10 @@
     "doneDate": "2026-03-18"
   },
   "0.3": {
-    "status": "faerdig",
-    "doneDate": "2026-03-25"
+    "status": "igang",
+    "doneDate": null
   },
   "1.1": {
-    "status": "faerdig",
-    "doneDate": "2026-03-25"
-  },
-  "2.1": {
     "status": "faerdig",
     "doneDate": "2026-03-25"
   },
@@ -23,8 +19,8 @@
     "status": "igang",
     "doneDate": null
   },
-  "1.3": {
-    "status": "igang",
-    "doneDate": null
+  "2.1": {
+    "status": "faerdig",
+    "doneDate": "2026-03-25"
   }
 }

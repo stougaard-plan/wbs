@@ -37,30 +37,23 @@
   .task-row.done td { color: #94a3b8; }
   .task-row.done .task-name { text-decoration: line-through; }
   .task-row.active { background: var(--blue-light); }
-
-  /* Checkbox */
   .cb { width: 20px; height: 20px; border: 2px solid var(--border); border-radius: 5px; cursor: pointer; display: flex; align-items: center; justify-content: center; transition: all 0.15s; user-select: none; }
   .cb:hover { border-color: var(--blue); }
   .cb.checked { background: var(--green); border-color: var(--green); color: #fff; }
   .cb.active { background: var(--blue); border-color: var(--blue); color: #fff; }
-
-  /* Status pill */
   .status-pill { font-size: 11px; font-weight: 600; padding: 2px 8px; border-radius: 99px; cursor: pointer; user-select: none; white-space: nowrap; transition: all 0.15s; }
   .status-pill:hover { opacity: 0.8; transform: scale(1.02); }
   .sp-planlagt { background: var(--gray-light); color: var(--gray); }
   .sp-igang { background: var(--blue-light); color: var(--blue); }
   .sp-faerdig { background: var(--green-light); color: var(--green); }
-
-  /* Progress bar */
   .progress-bar { height: 6px; background: var(--gray-light); border-radius: 3px; overflow: hidden; }
   .progress-fill { height: 100%; border-radius: 3px; transition: width 0.4s ease; }
-
   .hour-input { width: 50px; padding: 3px 4px; border: 1px solid var(--border); border-radius: 6px; font-size: 13px; font-weight: 600; text-align: center; background: #fff; }
   .hour-input:focus { outline: none; border-color: var(--blue); box-shadow: 0 0 0 3px var(--blue-light); }
   .done-date-cell { font-size: 11px; color: var(--green); font-weight: 600; }
   .gantt-container { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 20px; overflow-x: auto; }
   .gantt-header { display: grid; grid-template-columns: 260px 1fr; font-size: 11px; color: var(--gray); margin-bottom: 4px; }
-  .gantt-months { display: grid; grid-template-columns: repeat(4, 1fr); text-align: center; font-weight: 600; }
+  .gantt-months { display: grid; grid-template-columns: repeat(10, 1fr); text-align: center; font-weight: 600; }
   .gantt-row { display: grid; grid-template-columns: 260px 1fr; align-items: center; min-height: 32px; border-top: 1px solid #f1f5f9; }
   .gantt-row.phase { background: var(--gray-light); font-weight: 600; font-size: 13px; min-height: 36px; }
   .gantt-label { padding: 4px 8px; font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
@@ -72,6 +65,7 @@
   .budget-bar { display: flex; gap: 2px; height: 32px; border-radius: 6px; overflow: hidden; margin-bottom: 8px; }
   .budget-bar > div { display: flex; align-items: center; justify-content: center; color: #fff; font-size: 11px; font-weight: 600; }
   .risk-tag { display: inline-block; font-size: 11px; padding: 1px 6px; border-radius: 4px; font-weight: 500; }
+  .risk-high { background: var(--red-light); color: var(--red); }
   .risk-med { background: var(--amber-light); color: var(--amber); }
   .risk-low { background: var(--green-light); color: var(--green); }
   .done-date { background: var(--green-light); border: 1px solid #bbf7d0; border-radius: 6px; padding: 2px 8px; font-weight: 600; color: var(--green); font-size: 12px; }
@@ -80,17 +74,20 @@
   .toolbar button:hover { border-color: var(--blue); color: var(--blue); }
   .toolbar button.primary { background: var(--blue); color: #fff; border-color: var(--blue); }
   .toolbar button.primary:hover { background: #1d4ed8; }
-  .capacity-table { width: 100%; border-collapse: collapse; background: var(--card); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; font-size: 13px; margin-top: 12px; }
-  .capacity-table th { background: var(--gray-light); text-align: center; padding: 8px 6px; font-weight: 600; font-size: 11px; text-transform: uppercase; color: var(--gray); }
-  .capacity-table td { padding: 8px 6px; border-top: 1px solid var(--border); text-align: center; font-size: 12px; }
+  .change-tag { display: inline-block; font-size: 10px; padding: 1px 5px; border-radius: 4px; font-weight: 600; background: var(--purple-light); color: var(--purple); margin-left: 6px; vertical-align: middle; }
   .easter { background: #fef2f2; color: var(--red); font-style: italic; }
   @media (max-width: 768px) { body { padding: 12px; } .summary-grid { grid-template-columns: 1fr 1fr; } }
 </style>
 </head>
 <body>
 
-<h1>WBS — Servicetjek af erhvervsområder</h1>
-<p class="subtitle">Roskilde Kommune · Stougaard Plan ApS · Tillæg 1: 1/3–1/6 2026 · V2 (sekventiel tilgang m. borgermøder, rev. 25/3)</p>
+<h1>WBS — Servicetjek af erhvervsomrader</h1>
+<p class="subtitle">Roskilde Kommune &middot; Stougaard Plan ApS &middot; Tillaeg 1: 1/3&ndash;1/6 2026 &middot; <strong>V3</strong> (hybrid-parallel tilgang, rev. 31/3)</p>
+
+<!-- VERSION NOTE -->
+<div style="background:var(--purple-light);border:1px solid #c4b5fd;border-radius:10px;padding:12px 16px;font-size:13px;margin-bottom:20px;line-height:1.6;">
+  <strong style="color:var(--purple);">V3 aendringer (31/3):</strong> Tilgang aendret fra sekventiel til <strong>hybrid-parallel</strong>. Alle 7 omrader kortlaegges parallelt. Borgermoder komprimeres (1/uge, juni + august). Analyse naesten faerdig for inddragelse. Deskriptiv vinkel: konstater tilstand, grav ikke i arsager. Godkendt af Stinne.
+</div>
 
 <!-- SUMMARY CARDS -->
 <div class="summary-grid">
@@ -98,31 +95,31 @@
     <div class="label">Fremdrift</div>
     <div class="value" style="color:var(--teal)" id="card-progress">0%</div>
     <div style="margin-top:6px"><div class="progress-bar"><div class="progress-fill" id="progress-fill" style="width:0%;background:var(--teal)"></div></div></div>
-    <div class="note" id="card-progress-note">0 af 18 opgaver</div>
+    <div class="note" id="card-progress-note">0 af 0 opgaver</div>
   </div>
   <div class="summary-card">
-    <div class="label">Tillæg 1 — total</div>
+    <div class="label">Tillaeg 1 &mdash; total</div>
     <div class="value">135 t</div>
-    <div class="note">Hvidbog 35 t afsluttet (+3,5 t)</div>
+    <div class="note">Hvidbog 35 t afsluttet</div>
   </div>
   <div class="summary-card">
-    <div class="label">Servicetjek (F0–F4)</div>
-    <div class="value" style="color:var(--teal)" id="card-servicetjek">102 t</div>
-    <div class="note" id="card-servicetjek-note">Inden for rammen</div>
+    <div class="label">Servicetjek (F0&ndash;F4)</div>
+    <div class="value" style="color:var(--teal)" id="card-servicetjek">0 t</div>
+    <div class="note" id="card-servicetjek-note"></div>
   </div>
   <div class="summary-card">
     <div class="label">Buffer</div>
-    <div class="value" style="color:var(--gray)" id="card-buffer">1,5 t</div>
-    <div class="note">Af 100 t tilgængelig</div>
+    <div class="value" style="color:var(--gray)" id="card-buffer">0 t</div>
+    <div class="note">Af 100 t tilgaengelig</div>
   </div>
   <div class="summary-card">
-    <div class="label">Forventet færdig</div>
-    <div class="value" style="color:var(--amber)">Dec. 2026</div>
-    <div class="note">Kræver forlængelse (Tillæg 2)</div>
+    <div class="label">Tillaeg 1 daekker</div>
+    <div class="value" style="color:var(--blue)">F0&ndash;F2</div>
+    <div class="note">F3&ndash;F4 kraever forlaengelse</div>
   </div>
   <div class="summary-card">
     <div class="label">I dag</div>
-    <div class="value" style="color:var(--blue)" id="card-today">—</div>
+    <div class="value" style="color:var(--blue)" id="card-today">&mdash;</div>
     <div class="note" id="card-today-note"></div>
   </div>
 </div>
@@ -138,7 +135,7 @@
 
 <!-- TOOLBAR -->
 <div class="toolbar">
-  <button class="primary" onclick="exportData()">Kopiér status</button>
+  <button class="primary" onclick="exportData()">Kopier status</button>
   <button onclick="resetAll()">Nulstil alt</button>
   <span style="font-size:12px; color:var(--gray); align-self:center;" id="last-saved"></span>
 </div>
@@ -177,46 +174,51 @@
     </div>
     <div id="gantt-body"></div>
     <div class="legend">
-      <div class="legend-item"><div class="legend-dot" style="background:var(--blue)"></div> F0</div>
-      <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div> F1</div>
-      <div class="legend-item"><div class="legend-dot" style="background:var(--amber)"></div> F2</div>
-      <div class="legend-item"><div class="legend-dot" style="background:var(--purple)"></div> F3</div>
-      <div class="legend-item"><div class="legend-dot" style="background:var(--teal)"></div> F4</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--blue)"></div> F0 Procesplan</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div> F1 Kortlaegning</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--amber)"></div> F2 Analyse</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--purple)"></div> F3 Borgermoder</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--teal)"></div> F4 Rapport</div>
       <div class="legend-item"><div style="width:2px; height:14px; background:var(--red);"></div> I dag</div>
-      <div class="legend-item"><div style="width:1px; height:14px; background:#94a3b8;"></div> Kontrakt 1/6</div>
+      <div class="legend-item"><div style="width:1px; height:14px; background:#94a3b8; border-style:dashed;"></div> Tillaeg 1 udlob 1/6</div>
     </div>
   </div>
 </div>
 
 <!-- DELIVERABLES -->
 <div class="section">
-  <div class="section-title">Nøgleleverancer</div>
+  <div class="section-title">Nogleleverancer</div>
   <table>
     <thead><tr><th style="width:40px">Nr.</th><th>Leverance</th><th style="width:100px">Format</th><th style="width:60px">Opgave</th><th style="width:75px">Planlagt</th><th style="width:85px">Komm.frist</th></tr></thead>
     <tbody>
-      <tr><td>L0</td><td>Procesplan v2 + WBS + mødereferat JT</td><td>Notat (Word)</td><td>0.3</td><td>25. mar ✓</td><td>1. apr</td></tr>
-      <tr><td>L1</td><td>Indlæsningsnotat + dialogplan v2</td><td>Notat (Word)</td><td>1.4</td><td>25. mar ✓</td><td>1. apr</td></tr>
-      <tr><td>L2</td><td>Intern analyse Møllehaven (kortlægning + LP-gennemgang)</td><td>Notat (Word)</td><td>1.4</td><td>18. apr</td><td>22. apr</td></tr>
-      <tr><td>L3</td><td>Borgermøde-materiale Møllehaven (invitation + oplæg)</td><td>Invitation + slides</td><td>3.2</td><td>30. apr</td><td>—</td></tr>
-      <tr><td>L3b</td><td>Opsamling borgermøde Møllehaven</td><td>Notat (Word)</td><td>3.4</td><td>Maj</td><td>—</td></tr>
-      <tr><td>L4</td><td>Samlet servicetjek-rapport (alle 7 områder)</td><td>Rapport (Word/PDF)</td><td>4.4</td><td>Nov–dec</td><td>Møde aftales</td></tr>
+      <tr><td>L0</td><td>Procesplan v3 + WBS + modereferat JT</td><td>Notat (Word)</td><td>0.3</td><td>31. mar</td><td>4. apr</td></tr>
+      <tr><td>L1</td><td>Indlaesningsnotat + dialogplan v2</td><td>Notat (Word)</td><td>1.1</td><td>25. mar &check;</td><td>1. apr</td></tr>
+      <tr><td>L2</td><td>Samlet kortlaegningsnotat alle 7 omrader</td><td>Notat (Word)</td><td>1.4</td><td>25. apr</td><td>30. apr</td></tr>
+      <tr><td>L3</td><td>Analysenotat: dilemmaer, tilstand, muligheder</td><td>Notat (Word)</td><td>2.4</td><td>12. maj</td><td>16. maj</td></tr>
+      <tr><td>L4</td><td>Borgermodeoplaeg (faelles ramme + per-omrade)</td><td>Slides + notat</td><td>3.1</td><td>1. jun</td><td>&mdash;</td></tr>
+      <tr><td>L5</td><td>Input til Anna / Erhvervsrad 20/6</td><td>Kort notat</td><td>3.6</td><td>30. maj</td><td>&mdash;</td></tr>
+      <tr><td>L6</td><td>Samlet servicetjek-rapport (alle 7 omrader)</td><td>Rapport (Word/PDF)</td><td>4.1</td><td>Sept</td><td>Mode aftales</td></tr>
     </tbody>
-    <tfoot><tr><td colspan="6" style="font-size:11px;color:var(--gray);padding:8px;">L0–L1 afleveret 25/3. L2–L3b inden for Tillæg 1 (1/3–1/6). L4 kræver kontraktforlængelse. Alle leverancer sendes skriftligt med kommenteringsfrist.</td></tr></tfoot>
+    <tfoot><tr><td colspan="6" style="font-size:11px;color:var(--gray);padding:8px;">L0&ndash;L3 inden for Tillaeg 1. L4&ndash;L6 kraever kontraktforlaengelse (Tillaeg 2). Alle leverancer sendes skriftligt med kommenteringsfrist.</td></tr></tfoot>
   </table>
 </div>
 
 <!-- NOTES -->
 <div class="section">
-  <div class="section-title">Forudsætninger og risici</div>
+  <div class="section-title">Forudsaetninger og risici</div>
   <div class="note-box">
-    <strong>Kontrakt:</strong> Tillæg 1, 27/2-2026. Periode 1/3–1/6. Max 135 t. Hvidbog afsluttet (35 t). Restbudget til servicetjek: 100 t. Fase 0–3 (64 t) er inden for budget. Fase 4 kræver kontraktforlængelse.<br><br>
-    <strong>Tilgang (ændret 25/3):</strong> Sekventiel med borgermøder. Start med Møllehaven/Jyllinge, derefter Himmelev + Gadstrup, og til sidst 4 resterende områder. Besluttet efter møde med Jens Thornsen 25/3.<br><br>
-    <strong>Leveringsform:</strong> Alle leverancer sendes skriftligt til Stinne med kommenteringsfrist. Borgermøder planlægges med min. 1 måneds varsel. Input til Anna (Erhvervsråd) senest ca. 30. maj.<br><br>
-    <strong>Kritisk sti:</strong> 0.1 → 1.1 → 1.3 → 1.4 → 2.1 → 3.1 → 3.2 → 3.3 → 3.4 → 4.1 → … → 4.4<br><br>
+    <strong>Kontrakt:</strong> Tillaeg 1, 27/2-2026. Periode 1/3&ndash;1/6. Max 135 t. Hvidbog afsluttet (35 t). Restbudget til servicetjek: 100 t. F0&ndash;F2 (~58 t) inden for Tillaeg 1. F3&ndash;F4 (~40 t) kraever forlaengelse.<br><br>
+    <strong>Tilgang (V3, 31/3):</strong> Hybrid-parallel. Alle 7 omrader kortlaegges og analyseres parallelt. Borgermoder komprimeres: 1 pr. uge i juni (runde 1: 3 omrader) og august (runde 2: 4 omrader). Analysen skal vaere naesten faerdig for inddragelse &mdash; skarpt rammesat dialog, ingen urealistiske forventninger.<br><br>
+    <strong>Faglig vinkel:</strong> Deskriptiv. Konstater tilstanden i omraderne i dag. Grav ikke i arsager til uoverensstemmelser. Naevn aldrig enkeltvirksomheder. Pragmatisk tilgang godkendt af Stinne.<br><br>
+    <strong>Dilemmaer at haandtere:</strong><br>
+    &bull; Virksomheder uden byggetilladelse der er godt modtaget lokalt (Organic Market-typen)<br>
+    &bull; Byggetilladelser givet i strid med plangrundlag &mdash; konstateres, ikke granskes<br>
+    &bull; Kompetencenormer i LP: fungerer nok ikke laengere (JT-observation)<br><br>
+    <strong>Kritisk sti:</strong> 0.1 &rarr; 1.1 &rarr; 1.2 &rarr; 1.3/1.4 &rarr; 2.3 &rarr; 2.4 &rarr; 2.5 &rarr; 2.6 &rarr; 3.1 &rarr; 3.3 &rarr; 3.4 &rarr; 3.5 &rarr; 4.1<br><br>
     <strong>Risici:</strong><br>
-    <span class="risk-tag risk-high">Høj</span> Kontraktforlængelse nødvendig for Fase 4 (rapport + resterende områder)<br>
-    <span class="risk-tag risk-med">Middel</span> Borgermøde-deltagelse — kræver god invitation og relevant format<br>
-    <span class="risk-tag risk-med">Middel</span> Intern LP-analyse må IKKE nævne enkeltvirksomheder (JT-beslutning)<br>
+    <span class="risk-tag risk-high">Hoj</span> Kontraktforlaengelse nodvendig for F3&ndash;F4<br>
+    <span class="risk-tag risk-med">Middel</span> Strategisk afklaring med Stinne kan forsinkle borgermodestart<br>
+    <span class="risk-tag risk-med">Middel</span> Borgermode-deltagelse &mdash; kraever god invitation og relevant format<br>
     <span class="risk-tag risk-low">Lav</span> Koordinering med Roskilde Handel og Erhverv (Morten Bo Berthelsen)<br><br>
     <strong>eDoc sagsnr.:</strong> 26-003021 og 25-025055
   </div>
@@ -237,36 +239,37 @@ let saving = false;
 
 const phases = [
   { id: 'f0', label: 'Fase 0 — Procesplan', color: 'var(--blue)', bgColor: 'var(--blue-light)', tasks: [
-    { id: '0.1', name: 'WBS, estimat og procesplan', hours: 2, dep: '—', dod: 'Godkendt WBS med timer, datoer, afhængigheder', start: '18/3', end: '18/3' },
-    { id: '0.2', name: 'Mødeplan: book Stinne + Jens Thornsen', hours: 2, dep: '—', dod: 'Mødedatoer i kalenderen', start: '18/3', end: '18/3' },
-    { id: '0.3', name: 'Procesnotat v2: revideret tilgang', hours: 2, dep: '0.1, 2.1', dod: 'L0 v2 med sekventiel tilgang og borgermøder', start: '25/3', end: '27/3', lev: 'L0: Procesplan v2' },
+    { id: '0.1', name: 'WBS, estimat og procesplan', hours: 2, dep: '\u2014', dod: 'Godkendt WBS med timer, datoer, afhaengigheder', start: '18/3', end: '18/3' },
+    { id: '0.2', name: 'Modeplan: book Stinne + Jens Thornsen', hours: 2, dep: '\u2014', dod: 'Modedatoer i kalenderen', start: '18/3', end: '18/3' },
+    { id: '0.3', name: 'Procesnotat v3: hybrid-parallel tilgang', hours: 2, dep: '0.1, 2.1', dod: 'L0 v3 med parallel kortlaegning + komprimerede borgermoder', start: '31/3', end: '4/4', lev: 'L0: Procesplan v3' },
   ]},
-  { id: 'f1', label: 'Fase 1 — Indlæsning og kortlægning', color: 'var(--green)', bgColor: 'var(--green-light)', tasks: [
-    { id: '1.1', name: 'Indlæsning: planstrategi, servicetjek 2013, politisk mandat', hours: 4, dep: '0.1', dod: 'Notat med nøglefund, politisk ramme, åbne spørgsmål', start: '18/3', end: '25/3' },
-    { id: '1.2', name: 'Områdeafgrænsning: kort over erhvervsområder', hours: 6, dep: '0.1', dod: 'Kort + dataskema pr. område. Godkendt af Stinne', start: '25/3', end: '8/4' },
-    { id: '1.3', name: 'Dialogplan v2: borgermøder, rækkefølge, tidsplan', hours: 4, dep: '1.1, 2.1', dod: 'Dialogplan v2 klar til godkendelse', start: '25/3', end: '27/3', lev: 'L1: Oversigtsnotat + dialogplan v2' },
-    { id: '1.4', name: 'Besigtigelse af Møllehaven (+ evt. Himmelev/Gadstrup)', hours: 8, dep: '1.2', dod: 'Fotos og observationsnoter', start: '8/4', end: '10/4' },
+  { id: 'f1', label: 'Fase 1 — Kortlaegning, alle 7 omrader', color: 'var(--green)', bgColor: 'var(--green-light)', tasks: [
+    { id: '1.1', name: 'Indlaesning: planstrategi, servicetjek 2013, politisk mandat', hours: 4, dep: '0.1', dod: 'Notat med noglefund, politisk ramme, abne sporgsmal', start: '18/3', end: '25/3' },
+    { id: '1.2', name: 'Omradeafgraensning: kort + dataskema alle 7 omrader', hours: 6, dep: '0.1', dod: 'Kort + dataskema pr. omrade. Godkendt af Stinne', start: '25/3', end: '8/4' },
+    { id: '1.3', name: 'Besigtigelse alle 7 omrader (2 runder)', hours: 10, dep: '1.2', dod: 'Fotos og observationsnoter pr. omrade', start: '8/4', end: '25/4' },
+    { id: '1.4', name: 'Plangrundlag-analyse: LP + KP per omrade', hours: 8, dep: '1.1, 1.2', dod: 'Samlet kortlaegningsnotat med planforhold pr. omrade', start: '8/4', end: '25/4', lev: 'L2: Kortlaegningsnotat' },
   ]},
-  { id: 'f2', label: 'Fase 2 — Sparring og koordinering', color: 'var(--amber)', bgColor: 'var(--amber-light)', tasks: [
-    { id: '2.1', name: 'Møde med Jens Thornsen (gennemført 25/3)', hours: 2, dep: '1.1, 1.3', dod: 'Referat med input + ny tilgang aftalt', start: '25/3', end: '25/3' },
-    { id: '2.2', name: 'Koordineringsmøde med Morten Bo Berthelsen (RH&E)', hours: 2, dep: '2.1', dod: 'Aftalt koordinering af borgermøder', start: '1/4', end: '8/4' },
-    { id: '2.3', name: 'Godkendelse hos Stinne (dialogplan v2 + L0 v2)', hours: 2, dep: '2.1', dod: 'Skriftlig OK til ny tilgang', start: '1/4', end: '8/4' },
-    { id: '2.4', name: 'Intern analyse Møllehaven: data, planforhold, uoverenst.', hours: 4, dep: '1.2', dod: 'Analyse klar som grundlag for borgermødeoplæg', start: '8/4', end: '18/4' },
+  { id: 'f2', label: 'Fase 2 — Analyse og strategisk afklaring', color: 'var(--amber)', bgColor: 'var(--amber-light)', tasks: [
+    { id: '2.1', name: 'Mode med Jens Thornsen (gennemfort 25/3)', hours: 2, dep: '1.1', dod: 'Referat med input + ny tilgang aftalt', start: '25/3', end: '25/3' },
+    { id: '2.2', name: 'Koordineringsmode med Morten Bo Berthelsen (RH&E)', hours: 2, dep: '2.1', dod: 'Aftalt koordinering af borgermoder', start: '1/4', end: '8/4' },
+    { id: '2.3', name: 'Tilstandsanalyse: faktisk anvendelse vs. plangrundlag', hours: 8, dep: '1.3, 1.4', dod: 'Analyse med dilemmaer og uoverensstemmelser pr. omrade', start: '25/4', end: '8/5' },
+    { id: '2.4', name: 'Samlet analysenotat: dilemmaer og muligheder', hours: 6, dep: '2.3', dod: 'Internt notat klar til strategisk droftelese', start: '8/5', end: '15/5', lev: 'L3: Analysenotat' },
+    { id: '2.5', name: 'Strategisk droftelse med Stinne: retning og rammer', hours: 2, dep: '2.4', dod: 'Enighed om retning for borgermoder og anbefalinger', start: '15/5', end: '19/5' },
+    { id: '2.6', name: 'Godkendelse af analysenotat + borgermodeformat', hours: 2, dep: '2.5', dod: 'Skriftlig OK fra Stinne', start: '19/5', end: '22/5' },
+    { id: '2.7', name: 'Design af borgermodeformat og invitation', hours: 2, dep: '2.6', dod: 'Format, dagsorden og invitationstekst klar', start: '22/5', end: '27/5' },
   ]},
-  { id: 'f3', label: 'Fase 3 — Borgermøde Møllehaven', color: 'var(--purple)', bgColor: 'var(--purple-light)', tasks: [
-    { id: '3.1', name: 'Borgermødeoplæg Møllehaven', hours: 6, dep: '2.4', dod: 'Oplæg (4–6 sider) klar til invitation og møde', start: '14/4', end: '18/4', lev: 'L2: Borgermødeoplæg Møllehaven' },
-    { id: '3.2', name: 'Invitation til borgermøde (1 md. varsel)', hours: 2, dep: '2.3', dod: 'Invitation udsendt fra kommunen', start: '14/4', end: '16/4' },
-    { id: '3.3', name: 'Borgermøde Møllehaven (medio maj)', hours: 4, dep: '3.1, 3.2', dod: 'Borgermøde gennemført, noter taget', start: '12/5', end: '14/5' },
-    { id: '3.4', name: 'Opsamlingsnotat fra borgermøde', hours: 6, dep: '3.3', dod: 'Samlet opsamling: temaer, udfordringer, forslag', start: '14/5', end: '21/5', lev: 'L3: Opsamling fra borgermøde Møllehaven' },
-    { id: '3.5', name: 'Input til Anna (Erhvervsråd 20/6)', hours: 4, dep: '3.4', dod: 'Kort notat om status til Erhvervsrådet', start: '21/5', end: '30/5', lev: 'L3b: Input til Anna (Erhvervsråd)' },
-    { id: '3.6', name: 'Forberedelse: intern analyse Himmelev + Gadstrup', hours: 4, dep: '1.2', dod: 'Analyser klar til borgermødeforberedelse', start: '21/5', end: '1/6' },
+  { id: 'f3', label: 'Fase 3 — Borgermoder, komprimeret', color: 'var(--purple)', bgColor: 'var(--purple-light)', tasks: [
+    { id: '3.1', name: 'Faelles borgermodeoplaeg (ramme + per-omrade indhold)', hours: 6, dep: '2.6', dod: 'Oplaeg klar til alle 7 moder', start: '22/5', end: '1/6', lev: 'L4: Borgermodeoplaeg' },
+    { id: '3.2', name: 'Invitationer alle 7 borgermoder (1 md. varsel)', hours: 2, dep: '2.7', dod: 'Invitationer udsendt via kommunen', start: '1/5', end: '15/5' },
+    { id: '3.3', name: 'Borgermoder runde 1: Mollehaven + Himmelev + Gadstrup', hours: 6, dep: '3.1, 3.2', dod: '3 moder gennemfort, noter taget', start: '2/6', end: '20/6' },
+    { id: '3.4', name: 'Borgermoder runde 2: Svogerslev + Viby + Gundsomgl. + Snoldelev', hours: 6, dep: '3.3', dod: '4 moder gennemfort, noter taget', start: '11/8', end: '29/8' },
+    { id: '3.5', name: 'Samlet opsamling alle borgermoder', hours: 4, dep: '3.4', dod: 'Opsamlingsnotat med temaer, udfordringer, forslag', start: '1/9', end: '8/9' },
+    { id: '3.6', name: 'Input til Anna / Erhvervsrad (20/6)', hours: 2, dep: '3.3', dod: 'Kort statusnotat til Erhvervsradet', start: '12/6', end: '18/6', lev: 'L5: Input Erhvervsrad' },
   ]},
-  { id: 'f4', label: 'Fase 4 — Runde 2–4 + rapport (kræver forlængelse)', color: 'var(--teal)', bgColor: 'var(--teal-light)', tasks: [
-    { id: '4.1', name: 'Borgermøder Himmelev + Gadstrup (juni)', hours: 0, dep: '3.6', dod: 'Borgermøder gennemført + opsamling', start: '1/6', end: '25/6' },
-    { id: '4.2', name: 'Borgermøder Svogerslev + Viby (sept/okt)', hours: 0, dep: '4.1', dod: 'Borgermøder gennemført + opsamling', start: '—', end: '—' },
-    { id: '4.3', name: 'Borgermøder Gundsømagle + Snoldelev (okt/nov)', hours: 0, dep: '4.2', dod: 'Borgermøder gennemført + opsamling', start: '—', end: '—' },
-    { id: '4.4', name: 'Samlet analyse og rapport', hours: 0, dep: '4.3', dod: 'Rapport med anbefalinger pr. område', start: '—', end: '—', lev: 'L4: Servicetjek-rapport (samlet)' },
-    { id: '4.5', name: 'Politisk behandling (PTU)', hours: 0, dep: '4.4', dod: 'Udkast til politisk dagsorden', start: '—', end: '—' },
+  { id: 'f4', label: 'Fase 4 — Rapport og politisk behandling', color: 'var(--teal)', bgColor: 'var(--teal-light)', tasks: [
+    { id: '4.1', name: 'Samlet servicetjek-rapport (alle 7 omrader)', hours: 8, dep: '3.5', dod: 'Rapport med anbefalinger pr. omrade', start: '8/9', end: '26/9', lev: 'L6: Servicetjek-rapport' },
+    { id: '4.2', name: 'Review og tilretning med Stinne', hours: 4, dep: '4.1', dod: 'Endelig rapport godkendt af Stinne', start: '26/9', end: '6/10' },
+    { id: '4.3', name: 'Politisk dagsorden PTU', hours: 2, dep: '4.2', dod: 'Udkast til politisk dagsordenpunkt', start: '6/10', end: '13/10' },
   ]},
 ];
 
@@ -283,7 +286,7 @@ async function loadState() {
       fileSha = data.sha;
       state = JSON.parse(atob(data.content));
     }
-  } catch(e) { console.log('Ingen status.json endnu — starter frisk'); }
+  } catch(e) { console.log('Ingen status.json endnu'); }
   renderAll();
 }
 
@@ -303,7 +306,7 @@ async function saveState() {
     if (res.ok) {
       const data = await res.json();
       fileSha = data.content.sha;
-      if (el) el.textContent = 'Gemt ✓ ' + new Date().toLocaleTimeString('da-DK', {hour:'2-digit',minute:'2-digit'});
+      if (el) el.textContent = 'Gemt \u2713 ' + new Date().toLocaleTimeString('da-DK', {hour:'2-digit',minute:'2-digit'});
     } else {
       if (el) el.textContent = 'Fejl ved gem!';
     }
@@ -337,55 +340,28 @@ function renderAll() {
 function renderTable() {
   const tbody = document.getElementById('wbs-body');
   tbody.innerHTML = '';
-
   phases.forEach(phase => {
     const phaseTasks = phase.tasks;
     const doneTasks = phaseTasks.filter(t => getTaskState(t.id).status === 'faerdig').length;
     const phaseTotal = phaseTasks.reduce((s,t) => s + t.hours, 0);
     const phasePct = phaseTasks.length > 0 ? Math.round(doneTasks / phaseTasks.length * 100) : 0;
-
     const phaseRow = document.createElement('tr');
     phaseRow.className = 'phase-row';
-    phaseRow.innerHTML = `<td colspan="10" style="background:${phase.bgColor}; color:${phase.color};">
-      <div style="display:flex;align-items:center;gap:12px;">
-        <span>${phase.label}</span>
-        <span class="badge" style="background:${phase.color};color:#fff;">${phaseTotal} t</span>
-        <span style="font-size:12px;opacity:0.7;">${doneTasks}/${phaseTasks.length}</span>
-        <div style="flex:1;max-width:120px;">
-          <div class="progress-bar"><div class="progress-fill" style="width:${phasePct}%;background:${phase.color}"></div></div>
-        </div>
-        <span style="font-size:12px;font-weight:700;">${phasePct}%</span>
-      </div>
-    </td>`;
+    phaseRow.innerHTML = `<td colspan="10" style="background:${phase.bgColor}; color:${phase.color};"><div style="display:flex;align-items:center;gap:12px;"><span>${phase.label}</span><span class="badge" style="background:${phase.color};color:#fff;">${phaseTotal} t</span><span style="font-size:12px;opacity:0.7;">${doneTasks}/${phaseTasks.length}</span><div style="flex:1;max-width:120px;"><div class="progress-bar"><div class="progress-fill" style="width:${phasePct}%;background:${phase.color}"></div></div></div><span style="font-size:12px;font-weight:700;">${phasePct}%</span></div></td>`;
     tbody.appendChild(phaseRow);
-
     phaseTasks.forEach(task => {
       const ts = getTaskState(task.id);
       const tr = document.createElement('tr');
       tr.className = 'task-row' + (ts.status === 'faerdig' ? ' done' : '') + (ts.status === 'igang' ? ' active' : '');
-
       const cbClass = ts.status === 'faerdig' ? 'cb checked' : (ts.status === 'igang' ? 'cb active' : 'cb');
-      const cbIcon = ts.status === 'faerdig' ? '✓' : (ts.status === 'igang' ? '▶' : '');
+      const cbIcon = ts.status === 'faerdig' ? '\u2713' : (ts.status === 'igang' ? '\u25B6' : '');
       const spClass = 'status-pill sp-' + ts.status;
-      const spText = ts.status === 'planlagt' ? 'Planlagt' : (ts.status === 'igang' ? 'I gang' : 'Færdig');
+      const spText = ts.status === 'planlagt' ? 'Planlagt' : (ts.status === 'igang' ? 'I gang' : 'Faerdig');
       const doneCell = ts.doneDate ? formatDate(ts.doneDate) : '';
       const clickAttr = EDIT_MODE ? `onclick="cycleStatus('${task.id}')"` : '';
       const cursorStyle = EDIT_MODE ? 'cursor:pointer;' : 'cursor:default;';
-
-      const levBadge = task.lev ? ` <span style="background:var(--amber-light);color:var(--amber);font-size:10px;padding:1px 5px;border-radius:4px;font-weight:600;vertical-align:middle;" title="${task.lev}">📦 ${task.lev.split(':')[0]}</span>` : '';
-
-      tr.innerHTML = `
-        <td><div class="${cbClass}" ${clickAttr} style="${cursorStyle}">${cbIcon}</div></td>
-        <td style="font-weight:600;color:var(--gray);">${task.id}</td>
-        <td class="task-name">${task.name}${levBadge}</td>
-        <td style="text-align:center;font-weight:600;">${task.hours}</td>
-        <td><span class="${spClass}" ${clickAttr} style="${cursorStyle}">${spText}</span></td>
-        <td style="font-size:12px;">${task.start}</td>
-        <td style="font-size:12px;">${task.end}</td>
-        <td class="done-date-cell">${doneCell}</td>
-        <td style="font-size:11px;color:var(--gray);">${task.dep}</td>
-        <td style="font-size:12px;color:var(--gray);">${task.dod}</td>
-      `;
+      const levBadge = task.lev ? ` <span style="background:var(--amber-light);color:var(--amber);font-size:10px;padding:1px 5px;border-radius:4px;font-weight:600;vertical-align:middle;" title="${task.lev}">\uD83D\uDCE6 ${task.lev.split(':')[0]}</span>` : '';
+      tr.innerHTML = `<td><div class="${cbClass}" ${clickAttr} style="${cursorStyle}">${cbIcon}</div></td><td style="font-weight:600;color:var(--gray);">${task.id}</td><td class="task-name">${task.name}${levBadge}</td><td style="text-align:center;font-weight:600;">${task.hours}</td><td><span class="${spClass}" ${clickAttr} style="${cursorStyle}">${spText}</span></td><td style="font-size:12px;">${task.start}</td><td style="font-size:12px;">${task.end}</td><td class="done-date-cell">${doneCell}</td><td style="font-size:11px;color:var(--gray);">${task.dep}</td><td style="font-size:12px;color:var(--gray);">${task.dod}</td>`;
       tbody.appendChild(tr);
     });
   });
@@ -396,30 +372,23 @@ function renderBudget() {
   phases.forEach(p => { p.tasks.forEach(t => total04 += t.hours); });
   const buffer = AVAILABLE - total04;
   const overBudget = buffer < 0;
-
   document.getElementById('card-servicetjek').textContent = total04 + ' t';
   document.getElementById('card-servicetjek-note').textContent = overBudget ? 'OVER BUDGET' : 'Inden for rammen';
   document.getElementById('card-buffer').textContent = buffer.toFixed(1) + ' t';
-
   const pctH = HVIDBOG/TOTAL_BUDGET*100;
   const pctS = Math.min(total04,AVAILABLE)/TOTAL_BUDGET*100;
   const pctB = Math.max(0,buffer)/TOTAL_BUDGET*100;
-  document.getElementById('budget-bar').innerHTML = `
-    <div style="width:${pctH}%;background:var(--green)">Hvidbog 35</div>
-    <div style="width:${pctS}%;background:var(--blue)">Servicetjek ${total04}</div>
-    <div style="width:${pctB}%;background:var(--gray)">${buffer.toFixed(1)}</div>`;
-  document.getElementById('budget-status').textContent = `Brugt: ${(HVIDBOG+total04).toFixed(1)} / 135 t — Buffer: ${buffer.toFixed(1)} t`;
+  document.getElementById('budget-bar').innerHTML = `<div style="width:${pctH}%;background:var(--green)">Hvidbog 35</div><div style="width:${pctS}%;background:var(--blue)">Servicetjek ${total04}</div><div style="width:${pctB}%;background:var(--gray)">${buffer.toFixed(1)}</div>`;
+  document.getElementById('budget-status').textContent = `Brugt: ${(HVIDBOG+total04).toFixed(1)} / 135 t \u2014 Buffer: ${buffer.toFixed(1)} t`;
 }
 
 function renderCards() {
   const allTasks = phases.flatMap(p => p.tasks);
   const done = allTasks.filter(t => getTaskState(t.id).status === 'faerdig').length;
   const pct = Math.round(done / allTasks.length * 100);
-
   document.getElementById('card-progress').textContent = pct + '%';
   document.getElementById('progress-fill').style.width = pct + '%';
   document.getElementById('card-progress-note').textContent = `${done} af ${allTasks.length} opgaver`;
-
   const now = new Date();
   const months = ['jan','feb','mar','apr','maj','jun','jul','aug','sep','okt','nov','dec'];
   document.getElementById('card-today').textContent = now.getDate() + '. ' + months[now.getMonth()];
@@ -434,12 +403,10 @@ function renderGantt() {
   const dayPos = d => Math.max(0, Math.min(100, ((d - ganttStart) / (1000*60*60*24)) / ganttDays * 100));
   const contractEnd = new Date(2026, 5, 1);
   const today = new Date();
-  const easterStart = new Date(2026, 2, 31);
-  const easterEnd = new Date(2026, 3, 4);
-
+  const summerStart = new Date(2026, 5, 27);
+  const summerEnd = new Date(2026, 7, 9);
   const body = document.getElementById('gantt-body');
   body.innerHTML = '';
-
   phases.forEach(phase => {
     const phaseRow = document.createElement('div');
     phaseRow.className = 'gantt-row phase';
@@ -450,7 +417,6 @@ function renderGantt() {
     phaseRow.appendChild(pLabel);
     phaseRow.appendChild(document.createElement('div'));
     body.appendChild(phaseRow);
-
     phase.tasks.forEach(task => {
       const ts = getTaskState(task.id);
       const row = document.createElement('div');
@@ -458,27 +424,22 @@ function renderGantt() {
       const label = document.createElement('div');
       label.className = 'gantt-label';
       label.style.opacity = ts.status === 'faerdig' ? '0.5' : '1';
-      label.textContent = `${ts.status === 'faerdig' ? '✓ ' : ''}${task.id} ${task.name.substring(0,30)}${task.name.length > 30 ? '…' : ''}`;
+      label.textContent = `${ts.status === 'faerdig' ? '\u2713 ' : ''}${task.id} ${task.name.substring(0,30)}${task.name.length > 30 ? '\u2026' : ''}`;
       row.appendChild(label);
-
       const barArea = document.createElement('div');
       barArea.style.cssText = 'position:relative;height:32px;';
-
-      // Easter zone
-      const ez = document.createElement('div');
-      ez.style.cssText = `position:absolute;top:0;bottom:0;background:repeating-linear-gradient(45deg,transparent,transparent 3px,rgba(217,119,6,0.08) 3px,rgba(217,119,6,0.08) 6px);left:${dayPos(easterStart)}%;width:${dayPos(easterEnd)-dayPos(easterStart)}%;z-index:1;`;
-      barArea.appendChild(ez);
-
+      // Summer zone
+      const sz = document.createElement('div');
+      sz.style.cssText = `position:absolute;top:0;bottom:0;background:repeating-linear-gradient(45deg,transparent,transparent 3px,rgba(100,116,139,0.06) 3px,rgba(100,116,139,0.06) 6px);left:${dayPos(summerStart)}%;width:${dayPos(summerEnd)-dayPos(summerStart)}%;z-index:1;`;
+      barArea.appendChild(sz);
       // Contract end line
       const ce = document.createElement('div');
-      ce.style.cssText = `position:absolute;top:0;bottom:0;width:1px;background:#94a3b8;left:${dayPos(contractEnd)}%;z-index:2;`;
+      ce.style.cssText = `position:absolute;top:0;bottom:0;width:1px;background:#94a3b8;left:${dayPos(contractEnd)}%;z-index:2;border-left:1px dashed #94a3b8;`;
       barArea.appendChild(ce);
-
       // Today line
       const td = document.createElement('div');
       td.style.cssText = `position:absolute;top:0;bottom:0;width:2px;background:var(--red);left:${dayPos(today)}%;z-index:3;`;
       barArea.appendChild(td);
-
       const s = parseDate(task.start);
       const e = parseDate(task.end);
       if (s && e) {
@@ -489,7 +450,6 @@ function renderGantt() {
         bar.style.cssText = `position:absolute;left:${left}%;width:${Math.max(width, 0.8)}%;background:${isDone ? 'var(--green)' : phase.color};opacity:${isDone ? '0.5' : '0.85'};top:6px;height:20px;border-radius:4px;z-index:2;`;
         barArea.appendChild(bar);
       }
-
       row.appendChild(barArea);
       body.appendChild(row);
     });
@@ -498,7 +458,7 @@ function renderGantt() {
 
 // === HELPERS ===
 function parseDate(s) {
-  if (!s || s === '—') return null;
+  if (!s || s === '\u2014') return null;
   const [d,m] = s.split('/').map(Number);
   return new Date(2026, m-1, d);
 }
@@ -516,13 +476,13 @@ function getWeekNumber(d) {
 }
 
 function exportData() {
-  let lines = ['WBS Servicetjek — Status ' + new Date().toLocaleDateString('da-DK'), ''];
+  let lines = ['WBS Servicetjek V3 \u2014 Status ' + new Date().toLocaleDateString('da-DK'), ''];
   phases.forEach(phase => {
     const doneTasks = phase.tasks.filter(t => getTaskState(t.id).status === 'faerdig').length;
     lines.push(`${phase.label} (${doneTasks}/${phase.tasks.length})`);
     phase.tasks.forEach(t => {
       const ts = getTaskState(t.id);
-      const icon = ts.status === 'faerdig' ? '✓' : (ts.status === 'igang' ? '▶' : '○');
+      const icon = ts.status === 'faerdig' ? '\u2713' : (ts.status === 'igang' ? '\u25B6' : '\u25CB');
       const done = ts.doneDate ? ` [${ts.doneDate}]` : '';
       lines.push(`  ${icon} ${t.id}: ${t.name} (${t.hours}t)${done}`);
     });
@@ -534,30 +494,29 @@ function exportData() {
   const text = lines.join('\n');
   navigator.clipboard.writeText(text).then(() => {
     const btn = event.target;
-    btn.textContent = '✓ Kopieret';
-    setTimeout(() => { btn.textContent = 'Kopiér status'; }, 2000);
-  }).catch(() => { prompt('Kopiér:', text); });
+    btn.textContent = '\u2713 Kopieret';
+    setTimeout(() => { btn.textContent = 'Kopier status'; }, 2000);
+  }).catch(() => { prompt('Kopier:', text); });
 }
 
 function resetAll() {
-  if (confirm('Nulstil alle opgavestatus? Data slettes fra browseren.')) {
+  if (confirm('Nulstil alle opgavestatus? Data slettes.')) {
     state = {};
-    localStorage.removeItem(STORAGE_KEY);
+    saveState();
     renderAll();
   }
 }
 
 // === INIT ===
-// Show edit/read mode indicator
 if (!EDIT_MODE) {
   const banner = document.createElement('div');
   banner.style.cssText = 'background:var(--blue-light);color:var(--blue);padding:10px 16px;border-radius:8px;font-size:13px;font-weight:500;margin-bottom:16px;display:flex;align-items:center;gap:8px;';
-  banner.innerHTML = '🔒 Læsetilstand — fremdrift opdateres automatisk';
+  banner.innerHTML = '\uD83D\uDD12 Laesetilstand \u2014 tilfoej ?edit til URL for redigering';
   document.querySelector('h1').after(banner);
 } else {
   const banner = document.createElement('div');
   banner.style.cssText = 'background:var(--green-light);color:var(--green);padding:10px 16px;border-radius:8px;font-size:13px;font-weight:500;margin-bottom:16px;display:flex;align-items:center;gap:8px;';
-  banner.innerHTML = '✏️ Redigeringstilstand — klik på opgaver for at ændre status';
+  banner.innerHTML = '\u270F\uFE0F Redigeringstilstand \u2014 klik pa opgaver for at aendre status';
   document.querySelector('h1').after(banner);
 }
 loadState();
