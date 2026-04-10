@@ -77,11 +77,11 @@
 <body>
 
 <h1>WBS — Servicetjek af erhvervsområder</h1>
-<p class="subtitle">Roskilde Kommune · Stougaard Plan ApS · Tillæg 1: 1/3–1/6 2026 · <strong>V3</strong> (hybrid-parallel tilgang, rev. 31/3)</p>
+<p class="subtitle">Roskilde Kommune · Stougaard Plan ApS · Tillæg 1: 1/3–1/6 2026 · <strong>V4</strong> (hybrid-parallel tilgang, rev. 10/4)</p>
 
 <!-- VERSION NOTE -->
 <div style="background:var(--purple-light);border:1px solid #c4b5fd;border-radius:10px;padding:12px 16px;font-size:13px;margin-bottom:20px;line-height:1.6;">
-  <strong style="color:var(--purple);">V3 ændringer (31/3):</strong> Tilgang ændret fra sekventiel til <strong>hybrid-parallel</strong>. Alle 7 områder kortlægges parallelt. Borgermøder komprimeres (1/uge, juni + august). Analyse næsten færdig før inddragelse. Deskriptiv vinkel: konstatér tilstand, grav ikke i årsager. Godkendt af Stinne.
+  <strong style="color:var(--purple);">V4 opdatering (10/4):</strong> 4 borgermøder for 6 områder — Svogerslev udgår fra dialog (under omdannelse til boliger). Runde 1 juni (Jyllinge/Gundsømagle + Gadstrup/Snoldelev), runde 2 slut august (Himmelev + Viby). WBS opdateret: 138 timer + 35 timer buffer = 173 timer samlet. Tillæg 2 (80 timer, 1/6–31/10) nødvendig for F3–F4. Mandat-sporbarhed og dagligvare-mandat (PTU pkt. 142) eksplicit integreret.
 </div>
 
 <!-- SUMMARY CARDS -->
@@ -99,18 +99,23 @@
   </div>
   <div class="summary-card">
     <div class="label">Servicetjek (F0–F4)</div>
-    <div class="value" style="color:var(--teal)" id="card-servicetjek">0 t</div>
-    <div class="note" id="card-servicetjek-note"></div>
+    <div class="value" style="color:var(--teal)" id="card-servicetjek">138 t</div>
+    <div class="note" id="card-servicetjek-note">WBS-estimat</div>
   </div>
   <div class="summary-card">
     <div class="label">Buffer</div>
-    <div class="value" style="color:var(--gray)" id="card-buffer">0 t</div>
-    <div class="note">Af 100 t tilgængelig</div>
+    <div class="value" style="color:var(--gray)" id="card-buffer">35 t</div>
+    <div class="note">Samlet behov: 173 t</div>
   </div>
   <div class="summary-card">
     <div class="label">Tillæg 1 dækker</div>
     <div class="value" style="color:var(--blue)">F0–F2</div>
     <div class="note">F3–F4 kræver forlængelse</div>
+  </div>
+  <div class="summary-card">
+    <div class="label">Tillæg 2 (forslag)</div>
+    <div class="value" style="color:var(--purple)">80 t</div>
+    <div class="note">1/6–31/10, uændret timepris</div>
   </div>
   <div class="summary-card">
     <div class="label">I dag</div>
@@ -172,7 +177,7 @@
       <div class="legend-item"><div class="legend-dot" style="background:var(--blue)"></div> F0 Procesplan</div>
       <div class="legend-item"><div class="legend-dot" style="background:var(--green)"></div> F1 Kortlægning</div>
       <div class="legend-item"><div class="legend-dot" style="background:var(--amber)"></div> F2 Analyse</div>
-      <div class="legend-item"><div class="legend-dot" style="background:var(--purple)"></div> F3 Borgermøder</div>
+      <div class="legend-item"><div class="legend-dot" style="background:var(--purple)"></div> F3 Borgermøder (juni + slut august)</div>
       <div class="legend-item"><div class="legend-dot" style="background:var(--teal)"></div> F4 Rapport</div>
       <div class="legend-item"><div style="width:2px; height:14px; background:var(--red);"></div> I dag</div>
       <div class="legend-item"><div style="width:1px; height:14px; background:#94a3b8;"></div> Tillæg 1 udløb 1/6</div>
@@ -186,15 +191,16 @@
   <table>
     <thead><tr><th style="width:40px">Nr.</th><th>Leverance</th><th style="width:100px">Format</th><th style="width:60px">Opgave</th><th style="width:75px">Planlagt</th><th style="width:85px">Komm.frist</th></tr></thead>
     <tbody>
-      <tr><td>L0</td><td>Procesplan v3 + WBS + mødereferat JT</td><td>Notat (Word)</td><td>0.3</td><td>31. mar</td><td>4. apr</td></tr>
-      <tr><td>L1</td><td>Indlæsningsnotat + dialogplan v2</td><td>Notat (Word)</td><td>1.1</td><td>25. mar ✓</td><td>1. apr</td></tr>
-      <tr><td>L2</td><td>Samlet kortlægningsnotat alle 7 områder</td><td>Notat (Word)</td><td>1.4</td><td>25. apr</td><td>30. apr</td></tr>
-      <tr><td>L3</td><td>Analysenotat: dilemmaer, tilstand, muligheder</td><td>Notat (Word)</td><td>2.4</td><td>12. maj</td><td>16. maj</td></tr>
-      <tr><td>L4</td><td>Borgermødeoplæg (fælles ramme + per-område)</td><td>Slides + notat</td><td>3.1</td><td>1. jun</td><td>—</td></tr>
-      <tr><td>L5</td><td>Input til Anna / Erhvervsråd 20/6</td><td>Kort notat</td><td>3.6</td><td>30. maj</td><td>—</td></tr>
-      <tr><td>L6</td><td>Samlet servicetjek-rapport (alle 7 områder)</td><td>Rapport (Word/PDF)</td><td>4.1</td><td>Sept</td><td>Møde aftales</td></tr>
+      <tr><td>L0</td><td>Procesplan v0.4 (sammenlagt m. status + mandat-sporbarhed)</td><td>Notat (Word)</td><td>0.3</td><td>10. apr ✓</td><td>17. apr</td></tr>
+      <tr><td>L1</td><td>Baggrundskortlægning v0.2 (omdøbt fra Indlæsningsnotat)</td><td>Notat (Word)</td><td>1.1</td><td>10. apr ✓</td><td>Til orientering</td></tr>
+      <tr><td>L2a</td><td>Dialogplan v2 (udarbejdet, ikke sendt)</td><td>Notat (Word)</td><td>1.3</td><td>Afventer</td><td>—</td></tr>
+      <tr><td>L2b</td><td>Kortlægningsnotat alle 7 områder</td><td>Notat (Word)</td><td>1.4</td><td>25. apr</td><td>30. apr</td></tr>
+      <tr><td>L3</td><td>Analysenotat: tilstand, dilemmaer, muligheder</td><td>Notat (Word)</td><td>2.4</td><td>22. maj</td><td>28. maj</td></tr>
+      <tr><td>L4</td><td>Borgermødeoplæg (fælles ramme + per-område)</td><td>Slides + notat</td><td>3.1</td><td>1. jul</td><td>—</td></tr>
+      <tr><td>L5</td><td>Input til Anna / Erhvervsråd 20/6</td><td>Kort notat</td><td>3.6</td><td>22. maj</td><td>—</td></tr>
+      <tr><td>L6</td><td>Samlet servicetjek-rapport (alle 7 områder)</td><td>Rapport (Word/PDF)</td><td>4.1</td><td>Okt. 2026</td><td>Møde aftales</td></tr>
     </tbody>
-    <tfoot><tr><td colspan="6" style="font-size:11px;color:var(--gray);padding:8px;">L0–L3 inden for Tillæg 1. L4–L6 kræver kontraktforlængelse (Tillæg 2). Alle leverancer sendes skriftligt med kommenteringsfrist.</td></tr></tfoot>
+    <tfoot><tr><td colspan="6" style="font-size:11px;color:var(--gray);padding:8px;">L0–L3 + L5 inden for Tillæg 1. L4, L6 kræver kontraktforlængelse (Tillæg 2, 80 timer, 1/6–31/10). Alle leverancer sendes skriftligt med min. 5 hverdages kommenteringsfrist.</td></tr></tfoot>
   </table>
 </div>
 
@@ -202,25 +208,28 @@
 <div class="section">
   <div class="section-title">Forudsætninger og risici</div>
   <div class="note-box">
-    <strong>Kontrakt:</strong> Tillæg 1, 27/2-2026. Periode 1/3–1/6. Max 135 t. Hvidbog afsluttet (35 t). Restbudget til servicetjek: 100 t. F0–F2 (~58 t) inden for Tillæg 1. F3–F4 (~40 t) kræver forlængelse.<br><br>
-    <strong>Tilgang (V3, 31/3):</strong> Hybrid-parallel. Alle 7 områder kortlægges og analyseres parallelt. Borgermøder komprimeres: 1 pr. uge i juni (runde 1: 3 områder) og august (runde 2: 4 områder). Analysen skal være næsten færdig før inddragelse — skarpt rammesat dialog, ingen urealistiske forventninger.<br><br>
+    <strong>Kontrakt:</strong> Tillæg 1, 27/2-2026. Periode 1/3–1/6. Max 135 t. Hvidbog afsluttet (35 t). Restbudget til servicetjek: 100 t. F0–F2 inden for Tillæg 1. F3–F4 kræver forlængelse. Tillæg 2 forslag: 80 timer, 1/6–31/10, uændret timepris. Skal aftales inden 1/6.<br><br>
+    <strong>Tilgang (V4, 10/4):</strong> Hybrid-parallel. Alle 7 områder kortlægges og analyseres parallelt. 4 borgermøder for 6 områder — Svogerslev udgår fra dialogen (under omdannelse til boliger) og behandles kun i rapporten. Runde 1 juni uge 24–25 (Jyllinge/Gundsømagle + Gadstrup/Snoldelev), runde 2 slut august uge 35 (Himmelev + Viby). Analysen skal være næsten færdig før inddragelse — skarpt rammesat dialog, ingen urealistiske forventninger.<br><br>
     <strong>Faglig vinkel:</strong> Deskriptiv. Konstatér tilstanden i områderne i dag. Grav ikke i årsager til uoverensstemmelser. Nævn aldrig enkeltvirksomheder. Pragmatisk tilgang godkendt af Stinne.<br><br>
     <strong>Dilemmaer at håndtere:</strong><br>
     • Virksomheder uden byggetilladelse der er godt modtaget lokalt (Organic Market-typen)<br>
     • Byggetilladelser givet i strid med plangrundlag — konstateres, ikke granskes<br>
-    • Kompetencenormer i LP: fungerer nok ikke længere (JT-observation)<br><br>
+    • Kompetencenormer i LP: fungerer nok ikke længere (JT-observation)<br>
+    • Dagligvare-mandatet (PTU pkt. 142): kan der åbnes for dagligvare/pladskrævende i erhvervsområderne? Behandles eksplicit i opgave 1.4, 2.3, 3.1, 4.1<br>
+    • Arbejdspladsintensitet: CVR-data fra Jens Thornsen, 2013-format, sammenligning over tid<br><br>
     <strong>Kritisk sti:</strong> 0.1 → 1.1 → 1.2 → 1.3/1.4 → 2.3 → 2.4 → 2.5 → 2.6 → 3.1 → 3.3 → 3.4 → 3.5 → 4.1<br><br>
     <strong>Risici:</strong><br>
     <span class="risk-tag risk-high">Høj</span> Kontraktforlængelse nødvendig for F3–F4<br>
     <span class="risk-tag risk-med">Middel</span> Strategisk afklaring med Stinne kan forsinke borgermødestart<br>
     <span class="risk-tag risk-med">Middel</span> Borgermøde-deltagelse — kræver god invitation og relevant format<br>
+    <span class="risk-tag risk-med">Middel</span> CVR-data fra JT endnu ikke modtaget — kan forsinke arbejdspladsintensitet-analysen<br>
     <span class="risk-tag risk-low">Lav</span> Koordinering med Roskilde Handel og Erhverv (Morten Bo Berthelsen)<br><br>
     <strong>eDoc sagsnr.:</strong> 26-003021 og 25-025055
   </div>
 </div>
 
 <script>
-const TOTAL_BUDGET = 135;
+const TOTAL_BUDGET = 135; // Samlet behov: 173 t (138 WBS + 35 buffer). Tillæg 1: 135 t. Tillæg 2: 80 t.
 const HVIDBOG = 35;
 const AVAILABLE = TOTAL_BUDGET - HVIDBOG;
 
@@ -240,31 +249,31 @@ const phases = [
   ]},
   { id: 'f1', label: 'Fase 1 — Kortlægning, alle 7 områder', color: 'var(--green)', bgColor: 'var(--green-light)', tasks: [
     { id: '1.1', name: 'Indlæsning: planstrategi, servicetjek 2013, politisk mandat', hours: 4, dep: '0.1', dod: 'Notat med nøglefund, politisk ramme, åbne spørgsmål', start: '18/3', end: '25/3' },
-    { id: '1.2', name: 'Områdeafgrænsning: kort + dataskema alle 7 områder', hours: 6, dep: '0.1', dod: 'Kort + dataskema pr. område. Godkendt af Stinne', start: '25/3', end: '8/4' },
-    { id: '1.3', name: 'Besigtigelse alle 7 områder (2 runder)', hours: 10, dep: '1.2', dod: 'Fotos og observationsnoter pr. område', start: '8/4', end: '25/4' },
-    { id: '1.4', name: 'Plangrundlag-analyse: LP + KP per område', hours: 8, dep: '1.1, 1.2', dod: 'Samlet kortlægningsnotat med planforhold pr. område', start: '8/4', end: '25/4', lev: 'L2: Kortlægningsnotat' },
+    { id: '1.2', name: 'Områdeafgrænsning: kort + dataskema alle 7 områder', hours: 8, dep: '0.1', dod: 'Kort + dataskema pr. område. Godkendt af Stinne', start: '25/3', end: '8/4' },
+    { id: '1.3', name: 'Besigtigelse alle 7 områder (2 runder)', hours: 18, dep: '1.2', dod: 'Fotos og observationsnoter pr. område', start: '14/4', end: '25/4' },
+    { id: '1.4', name: 'Plangrundlag-analyse: LP + KP per område', hours: 10, dep: '1.1, 1.2', dod: 'Samlet kortlægningsnotat med planforhold pr. område (inkl. dagligvare-vurdering per område)', start: '8/4', end: '25/4', lev: 'L2b: Kortlægningsnotat' },
   ]},
   { id: 'f2', label: 'Fase 2 — Analyse og strategisk afklaring', color: 'var(--amber)', bgColor: 'var(--amber-light)', tasks: [
     { id: '2.1', name: 'Møde med Jens Thornsen (gennemført 25/3)', hours: 2, dep: '1.1', dod: 'Referat med input + ny tilgang aftalt', start: '25/3', end: '25/3' },
-    { id: '2.2', name: 'Koordineringsmøde med Morten Bo Berthelsen (RH&E)', hours: 2, dep: '2.1', dod: 'Aftalt koordinering af borgermøder', start: '1/4', end: '8/4' },
-    { id: '2.3', name: 'Tilstandsanalyse: faktisk anvendelse vs. plangrundlag', hours: 8, dep: '1.3, 1.4', dod: 'Analyse med dilemmaer og uoverensstemmelser pr. område', start: '25/4', end: '8/5' },
-    { id: '2.4', name: 'Samlet analysenotat: dilemmaer og muligheder', hours: 6, dep: '2.3', dod: 'Internt notat klar til strategisk drøftelse', start: '8/5', end: '15/5', lev: 'L3: Analysenotat' },
-    { id: '2.5', name: 'Strategisk drøftelse med Stinne: retning og rammer', hours: 2, dep: '2.4', dod: 'Enighed om retning for borgermøder og anbefalinger', start: '15/5', end: '19/5' },
-    { id: '2.6', name: 'Godkendelse af analysenotat + borgermødeformat', hours: 2, dep: '2.5', dod: 'Skriftlig OK fra Stinne', start: '19/5', end: '22/5' },
-    { id: '2.7', name: 'Design af borgermødeformat og invitation', hours: 2, dep: '2.6', dod: 'Format, dagsorden og invitationstekst klar', start: '22/5', end: '27/5' },
+    { id: '2.2', name: 'Koordineringsmøde med Morten Bo Berthelsen (RH&E)', hours: 2, dep: '2.1', dod: 'Aftalt koordinering af borgermøder', start: '1/5', end: '8/5' },
+    { id: '2.3', name: 'Tilstandsanalyse: faktisk anvendelse vs. plangrundlag', hours: 10, dep: '1.3, 1.4', dod: 'Analyse med dilemmaer og uoverensstemmelser pr. område, inkl. arbejdspladsintensitet (CVR, 2013-format)', start: '25/4', end: '15/5' },
+    { id: '2.4', name: 'Samlet analysenotat: dilemmaer og muligheder', hours: 8, dep: '2.3', dod: 'Internt notat klar til strategisk drøftelse', start: '15/5', end: '22/5', lev: 'L3: Analysenotat' },
+    { id: '2.5', name: 'Strategisk drøftelse med Stinne: retning og rammer', hours: 2, dep: '2.4', dod: 'Enighed om retning for borgermøder og anbefalinger', start: '19/5', end: '23/5' },
+    { id: '2.6', name: 'Godkendelse af analysenotat + borgermødeformat', hours: 2, dep: '2.5', dod: 'Skriftlig OK fra Stinne', start: '23/5', end: '28/5' },
+    { id: '2.7', name: 'Design af borgermødeformat og invitation', hours: 2, dep: '2.6', dod: 'Format, dagsorden og invitationstekst klar', start: '28/5', end: '4/6' },
   ]},
-  { id: 'f3', label: 'Fase 3 — Borgermøder, komprimeret', color: 'var(--purple)', bgColor: 'var(--purple-light)', tasks: [
-    { id: '3.1', name: 'Fælles borgermødeoplæg (ramme + per-område indhold)', hours: 6, dep: '2.6', dod: 'Oplæg klar til alle 7 møder', start: '22/5', end: '1/6', lev: 'L4: Borgermødeoplæg' },
-    { id: '3.2', name: 'Invitationer alle 7 borgermøder (1 md. varsel)', hours: 2, dep: '2.7', dod: 'Invitationer udsendt via kommunen', start: '1/5', end: '15/5' },
-    { id: '3.3', name: 'Borgermøder runde 1: Møllehaven + Himmelev + Gadstrup', hours: 6, dep: '3.1, 3.2', dod: '3 møder gennemført, noter taget', start: '2/6', end: '20/6' },
-    { id: '3.4', name: 'Borgermøder runde 2: Svogerslev + Viby + Gundsømagle + Snoldelev', hours: 6, dep: '3.3', dod: '4 møder gennemført, noter taget', start: '11/8', end: '29/8' },
-    { id: '3.5', name: 'Samlet opsamling alle borgermøder', hours: 4, dep: '3.4', dod: 'Opsamlingsnotat med temaer, udfordringer, forslag', start: '1/9', end: '8/9' },
-    { id: '3.6', name: 'Input til Anna / Erhvervsråd (20/6)', hours: 2, dep: '3.3', dod: 'Kort statusnotat til Erhvervsrådet', start: '12/6', end: '18/6', lev: 'L5: Input Erhvervsråd' },
+  { id: 'f3', label: 'Fase 3 — Borgermøder, efter sommerferie', color: 'var(--purple)', bgColor: 'var(--purple-light)', tasks: [
+    { id: '3.1', name: 'Fælles borgermødeoplæg (ramme + per-område indhold)', hours: 8, dep: '2.6', dod: 'Fælles oplæg + per-område indhold + dagligvare-spørgsmål klar', start: '1/6', end: '1/7', lev: 'L4: Borgermødeoplæg' },
+    { id: '3.2', name: 'Invitationer (runde 1 ultimo maj, runde 2 medio juli)', hours: 2, dep: '2.7', dod: 'Invitationer udsendt min. 1 md. før første møde i hver runde', start: '22/5', end: '15/7' },
+    { id: '3.3', name: 'Borgermøder runde 1: Jyllinge/Gundsømagle + Gadstrup/Snoldelev', hours: 4, dep: '3.1, 3.2', dod: '2 møder i samme uge: nord (Jyllinge+Gundsømagle) + syd (Gadstrup+Snoldelev)', start: '15/6', end: '19/6' },
+    { id: '3.4', name: 'Borgermøder runde 2: Himmelev + Viby', hours: 4, dep: '3.3', dod: '2 møder i uge 35. Svogerslev udgår (omdannelse).', start: '25/8', end: '29/8' },
+    { id: '3.5', name: 'Samlet opsamling alle borgermøder', hours: 3, dep: '3.4', dod: 'Opsamlingsnotat med temaer, udfordringer, forslag', start: '1/9', end: '8/9' },
+    { id: '3.6', name: 'Input til Anna / Erhvervsråd (20/6)', hours: 2, dep: '2.4', dod: 'Kort statusnotat til Anna, 4 uger før Erhvervsrådsmøde 20/6', start: '22/5', end: '22/5', lev: 'L5: Input Erhvervsråd' },
   ]},
   { id: 'f4', label: 'Fase 4 — Rapport og politisk behandling', color: 'var(--teal)', bgColor: 'var(--teal-light)', tasks: [
-    { id: '4.1', name: 'Samlet servicetjek-rapport (alle 7 områder)', hours: 8, dep: '3.5', dod: 'Rapport med anbefalinger pr. område', start: '8/9', end: '26/9', lev: 'L6: Servicetjek-rapport' },
-    { id: '4.2', name: 'Review og tilretning med Stinne', hours: 4, dep: '4.1', dod: 'Endelig rapport godkendt af Stinne', start: '26/9', end: '6/10' },
-    { id: '4.3', name: 'Politisk dagsorden PTU', hours: 2, dep: '4.2', dod: 'Udkast til politisk dagsordenpunkt', start: '6/10', end: '13/10' },
+    { id: '4.1', name: 'Samlet servicetjek-rapport (alle 7 områder)', hours: 10, dep: '3.5', dod: 'Rapport med anbefalinger pr. område', start: '3/10', end: '10/10', lev: 'L6: Servicetjek-rapport' },
+    { id: '4.2', name: 'Review og tilretning med Stinne', hours: 4, dep: '4.1', dod: 'Endelig rapport godkendt af Stinne', start: '10/10', end: '16/10' },
+    { id: '4.3', name: 'Politisk dagsorden PTU', hours: 2, dep: '4.2', dod: 'Dagsordenpunkt for PTU inden årets udgang', start: '16/10', end: '16/10' },
   ]},
 ];
 
@@ -365,11 +374,14 @@ function renderTable() {
 function renderBudget() {
   let total04 = 0;
   phases.forEach(p => { p.tasks.forEach(t => total04 += t.hours); });
+  // Samlet WBS-estimat: 138 t (inkl. overhead). Buffer: 35 t. Samlet behov: 173 t.
+  const WBS_ESTIMATE = 138;
+  const BUFFER = 35;
   const buffer = AVAILABLE - total04;
   const overBudget = buffer < 0;
-  document.getElementById('card-servicetjek').textContent = total04 + ' t';
-  document.getElementById('card-servicetjek-note').textContent = overBudget ? 'OVER BUDGET' : 'Inden for rammen';
-  document.getElementById('card-buffer').textContent = buffer.toFixed(1) + ' t';
+  document.getElementById('card-servicetjek').textContent = WBS_ESTIMATE + ' t';
+  document.getElementById('card-servicetjek-note').textContent = 'WBS-estimat (opgaver: ' + total04 + ' t)';
+  document.getElementById('card-buffer').textContent = BUFFER + ' t';
   const pctH = HVIDBOG/TOTAL_BUDGET*100;
   const pctS = Math.min(total04,AVAILABLE)/TOTAL_BUDGET*100;
   const pctB = Math.max(0,buffer)/TOTAL_BUDGET*100;
@@ -468,7 +480,7 @@ function getWeekNumber(d) {
 }
 
 function exportData() {
-  let lines = ['WBS Servicetjek V3 — Status ' + new Date().toLocaleDateString('da-DK'), ''];
+  let lines = ['WBS Servicetjek V4 — Status ' + new Date().toLocaleDateString('da-DK'), ''];
   phases.forEach(phase => {
     const doneTasks = phase.tasks.filter(t => getTaskState(t.id).status === 'faerdig').length;
     lines.push(`${phase.label} (${doneTasks}/${phase.tasks.length})`);
